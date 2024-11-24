@@ -1,27 +1,24 @@
 from django.contrib import admin
-from .models import User, RespondentProfile, Department, Establishment
+from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
+from .models import User, Department, Establishment, IncidentReport, IncidentAssignment
 
-class UserAdmin(admin.ModelAdmin):
+class UserAdmin(BaseUserAdmin):
     fieldsets = (
         (None, {'fields': ('username', 'email', 'password')}),
-        ('Personal info', {'fields': ('first_name', 'last_name', 'contact_information', 'address')}),
-        ('Permissions', {'fields': ('is_active', 'is_staff', 'is_superuser', 'groups', 'user_permissions')}),
-        ('Important dates', {'fields': ('last_login',)}),
+        ('Personal info', {'fields': ('first_name', 'last_name', 'contact_information', 'address', 'profession', 'birth_date', 'department', 'establishment')}),
+        ('Permissions', {'fields': ('is_active', 'is_staff', 'is_superuser', 'groups', 'user_permissions')}), 
+        ('Important dates', {'fields': ('last_login', 'date_joined')}),
     )
     add_fieldsets = (
         (None, {
             'classes': ('wide',),
-            'fields': ('username', 'email', 'password1', 'password2'),
+            'fields': ('username', 'email', 'password1', 'password2', 'first_name', 'last_name', 'contact_information', 'address', 'profession', 'birth_date', 'department', 'establishment'),
         }),
     )
     list_display = ('username', 'email', 'first_name', 'last_name', 'is_staff')
     search_fields = ('username', 'email', 'first_name', 'last_name')
     ordering = ('username',)
     readonly_fields = ('date_joined',)
-
-class RespondentProfileAdmin(admin.ModelAdmin):
-    list_display = ('user', 'profession', 'birth_date', 'department', 'establishment')
-    search_fields = ('user__username', 'user__email', 'profession', 'department__name', 'establishment__name')
 
 class DepartmentAdmin(admin.ModelAdmin):
     list_display = ('name',)
@@ -31,7 +28,18 @@ class EstablishmentAdmin(admin.ModelAdmin):
     list_display = ('name', 'location', 'department')
     search_fields = ('name', 'location', 'department__name')
 
+class IncidentReportAdmin(admin.ModelAdmin):
+    list_display = ('reportid', 'incident_type', 'severity', 'status', 'location', 'timestamp', 'department')
+    search_fields = ('incident_type', 'severity', 'status', 'location', 'department__name')
+    list_filter = ('incident_type', 'severity', 'status', 'timestamp', 'department')
+
+class IncidentAssignmentAdmin(admin.ModelAdmin):
+    list_display = ('user', 'incident_report', 'notification_sent', 'assigned_at')
+    search_fields = ('user__username', 'incident_report__reportid')
+    list_filter = ('notification_sent', 'assigned_at')
+
 admin.site.register(User, UserAdmin)
-admin.site.register(RespondentProfile, RespondentProfileAdmin)
 admin.site.register(Department, DepartmentAdmin)
 admin.site.register(Establishment, EstablishmentAdmin)
+admin.site.register(IncidentReport, IncidentReportAdmin)
+admin.site.register(IncidentAssignment, IncidentAssignmentAdmin)
