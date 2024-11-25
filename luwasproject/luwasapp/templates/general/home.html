@@ -1,0 +1,35 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Home</title>
+    <link rel="stylesheet" href="{% static 'home.css' %}">
+</head>
+
+<body>
+
+    <header class="header">
+        <div class="header-left">
+            <h1><a href="{% url 'home' %}" class="back-link">Luwas</a></h1>
+        </div>
+        <div class="header-right">
+            <button class="header-btn"><a href="{% url 'login' %}" class="back-link">Login</a></button>
+            <button class="header-btn"><a href="{% url 'signup' %}" class="back-link">Sign Up</a></button>
+    </div>
+    </header>
+    
+    <div class="container">
+        <div class="content">
+            <div class="welcome-section">
+                <h1>Emergency Call</h1>
+                <p>In urgent situations, quick access to emergency services can make all the difference. Whether it’s a medical crisis, fire, or crime in progress, our dedicated team is here to help 24/7. We understand that every second counts, and we’re committed to providing immediate assistance when you need it most. Your safety and well-being are our top priorities, so don’t hesitate to reach out for help. Together, we can ensure a swift response to protect lives and property.</p>
+            </div>
+
+            <div class="button-section">
+                <a href="" class="report-incident-btn">Report Incident</a>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

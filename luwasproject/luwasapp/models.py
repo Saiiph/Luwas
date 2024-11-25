@@ -17,7 +17,7 @@ class CustomUserManager(UserManager):
         return self._create_user(username, email, password, **extra_fields)
     
     def create_superuser(self, username, email, password=None, **extra_fields):
-        extra_fields.setdefault('is_staff', True)
+        extra_fields.setdefault('is_staff', True)   
         extra_fields.setdefault('is_superuser', True)
         
         if extra_fields.get('is_staff') is not True:
@@ -82,7 +82,7 @@ class IncidentReport(models.Model):
     reportid = models.AutoField(primary_key=True)
     incident_type = models.CharField(max_length=100)
     severity = models.CharField(max_length=25, choices=SEVERITY_CHOICES)
-    status = models.CharField(max_length=255, choices=STATUS_CHOICES)
+    status = models.CharField(max_length=255, choices=STATUS_CHOICES, default= "reported")
     location = models.CharField(max_length=255)    
     timestamp = models.DateTimeField(auto_now_add=True)
     department = models.ForeignKey('Department', on_delete=models.CASCADE, related_name='incidents', null=True, blank=True)
