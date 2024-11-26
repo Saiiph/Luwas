@@ -1,0 +1,88 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Incident Report</title>
+    <!-- Link to External CSS File -->
+    <link rel="stylesheet" href="{% static 'incident.css' %}">
+</head>
+<body>
+
+<!-- Header Section -->
+<header class="header">
+    <div class="header-left">
+        <h1><a href="{% url 'home' %}" class="back-link">Luwas</a></h1>
+    </div>
+    <div class="header-right">
+        <button class="header-btn"><a href="{% url 'login' %}" class="back-link">Login</a></button>
+        <button class="header-btn"><a href="{% url 'signup' %}" class="back-link">Sign Up</a></button>
+    </div>
+</header>
+
+<div class="form-container">
+    <h1>Create Incident Report</h1>
+    <form method="post">
+        {% csrf_token %}
+        
+        <!-- Incident Type Field -->
+        <div class="form-group">
+            <label for="{{ form.incident_type.id_for_label }}">Incident Type</label>
+            {{ form.incident_type }}
+            {% if form.incident_type.errors %}
+                <div class="error-message">
+                    {% for error in form.incident_type.errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+
+        <!-- Severity Field -->
+        <div class="form-group">
+            <label for="{{ form.severity.id_for_label }}">Severity</label>
+            {{ form.severity }}
+            {% if form.severity.errors %}
+                <div class="error-message">
+                    {% for error in form.severity.errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+
+        <!-- Category Field -->
+        <div class="form-group">
+            <label for="{{ form.category.id_for_label }}">Category</label>
+            {{ form.category }}
+            {% if form.category.errors %}
+                <div class="error-message">
+                    {% for error in form.category.errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+
+        <!-- Location Field -->
+        <div class="form-group">
+            <label for="{{ form.location.id_for_label }}">Location</label>
+            {{ form.location }}
+            {% if form.location.errors %}
+                <div class="error-message">
+                    {% for error in form.location.errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit"><b>Submit Report</b></button>
+    </form>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Incident Reports</title>
+</head>
+<body>
+    <h1>Incident Reports</h1>
+    <a href="{% url 'incident_create' %}">Create New Incident Report</a>
+    <ul>
+        {% for incident in incidents %}
+            <li>
+                <a href="{% url 'incident_detail' incident.pk %}">{{ incident.incident_type }} - {{ incident.status }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

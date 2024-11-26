@@ -79,9 +79,35 @@ class IncidentReport(models.Model):
         ('closed', 'Closed'),
     ]
 
+    CATEGORY_CHOICES = [
+        ('medical_emergency', 'Medical Emergency'),
+        ('fire_incident', 'Fire Incident'),
+        ('road_accident', 'Road Accident'),
+        ('natural_disaster', 'Natural Disaster'),
+        ('crime_related', 'Crime Related'),
+        ('domestic_violence', 'Domestic Violence'),
+        ('psychological_crisis', 'Psychological Crisis'),
+        ('missing_person', 'Missing Person'),
+        ('poisoning', 'Poisoning'),
+        ('gas_leak', 'Gas Leak'),
+        ('electrical_hazard', 'Electrical Hazard'),
+        ('hazardous_materials', 'Hazardous Materials Spill'),
+        ('flooding', 'Flooding'),
+        ('earthquake', 'Earthquake'),
+        ('typhoon', 'Typhoon'),
+        ('animal_attack', 'Animal Attack'),
+        ('terrorist_threat', 'Terrorist Threat/Attack'),
+        ('building_collapse', 'Building Collapse'),
+        ('public_disturbance', 'Public Disturbance'),
+        ('child_abuse', 'Child Abuse'),
+        ('elderly_abuse', 'Elderly Abuse'),
+    ]
+
+
     reportid = models.AutoField(primary_key=True)
     incident_type = models.CharField(max_length=100)
     severity = models.CharField(max_length=25, choices=SEVERITY_CHOICES)
+    category = models.CharField(max_length=255, choices=CATEGORY_CHOICES, blank=True)
     status = models.CharField(max_length=255, choices=STATUS_CHOICES, default= "reported")
     location = models.CharField(max_length=255)    
     timestamp = models.DateTimeField(auto_now_add=True)

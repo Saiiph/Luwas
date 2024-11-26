@@ -29,7 +29,7 @@ class EstablishmentAdmin(admin.ModelAdmin):
     search_fields = ('name', 'location', 'department__name')
 
 class IncidentReportAdmin(admin.ModelAdmin):
-    list_display = ('reportid', 'incident_type', 'severity', 'status', 'location', 'timestamp', 'department')
+    list_display = ('reportid', 'incident_type', 'severity', 'status', 'location', 'timestamp', 'category', 'department')
     search_fields = ('incident_type', 'severity', 'status', 'location', 'department__name')
     list_filter = ('incident_type', 'severity', 'status', 'timestamp', 'department')
 

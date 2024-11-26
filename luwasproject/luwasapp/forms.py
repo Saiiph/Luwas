@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
-from .models import User
+from .models import User, IncidentReport
 
 class SignupForm(UserCreationForm):
     class Meta:
@@ -10,3 +10,8 @@ class SignupForm(UserCreationForm):
 class LoginForm(AuthenticationForm):
     username = forms.CharField(max_length=100)
     password = forms.CharField(widget=forms.PasswordInput)
+
+class IncidentReportForm(forms.ModelForm):
+    class Meta:
+        model = IncidentReport
+        fields = ['incident_type', 'severity', 'category', 'location']
