@@ -69,13 +69,18 @@
         <div class="form-group">
             <label for="{{ form.location.id_for_label }}">Location</label>
             {{ form.location }}
-            {% if form.location.errors %}
-                <div class="error-message">
-                    {% for error in form.location.errors %}
-                        <p>{{ error }}</p>
-                    {% endfor %}
-                </div>
-            {% endif %}
+        </div>
+
+        <!-- Latitude Field -->
+        <div class="form-group">
+            <label for="{{ form.latitude.id_for_label }}">Latitude</label>
+            {{ form.latitude }}
+        </div>
+
+        <!-- Longitude Field -->
+        <div class="form-group">
+            <label for="{{ form.longitude.id_for_label }}">Longitude</label>
+            {{ form.longitude }}
         </div>
 
         <!-- Submit Button -->

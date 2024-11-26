@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import UserManager, AbstractBaseUser, PermissionsMixin
+import requests
 
 class CustomUserManager(UserManager):
     def _create_user(self, username, email, password, **extra_fields):
@@ -105,12 +106,17 @@ class IncidentReport(models.Model):
 
 
     reportid = models.AutoField(primary_key=True)
+
     incident_type = models.CharField(max_length=100)
     severity = models.CharField(max_length=25, choices=SEVERITY_CHOICES)
     category = models.CharField(max_length=255, choices=CATEGORY_CHOICES, blank=True)
     status = models.CharField(max_length=255, choices=STATUS_CHOICES, default= "reported")
+
     location = models.CharField(max_length=255)    
+    latitude = models.FloatField(null=True, blank=True)
+    longitude = models.FloatField(null=True, blank=True)
     timestamp = models.DateTimeField(auto_now_add=True)
+
     department = models.ForeignKey('Department', on_delete=models.CASCADE, related_name='incidents', null=True, blank=True)
 
     def __str__(self):
