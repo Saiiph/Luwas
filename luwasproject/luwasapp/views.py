@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.decorators import login_required
+from django.http import HttpResponseForbidden
 
 from .forms import SignupForm, LoginForm, IncidentReportForm
 from .models import IncidentReport
@@ -66,10 +68,51 @@ def incident_create_view(request):
 
 
 
-#Incident List View
-def incident_list_view(request):    
-    incidents = IncidentReport.objects.all()
+@login_required
+def incident_list_view(request):
+    if not request.user.department:
+        # If the user doesn't belong to any department, deny access
+        return HttpResponseForbidden("You are not assigned to a department.")
+    
+    # Map categories to departments (create this mapping as needed)
+    category_to_department = {
+        'fire_incident': ['Fire Department', 'Medical Department', 'Emergency Response'],
+        'medical_emergency': ['Medical Department', 'Emergency Response'],
+        'road_accident': ['Transportation Department', 'Medical Department'],
+        'natural_disaster': ['Disaster Response', 'Emergency Management Department'],
+        'crime_related': ['Police Department', 'Law Enforcement'],
+        'domestic_violence': ['Social Services', 'Domestic Violence Response Team'],
+        'psychological_crisis': ['Mental Health Services', 'Crisis Intervention Team'],
+        'missing_person': ['Police Department', 'Missing Persons Unit'],
+        'poisoning': ['Poison Control Center', 'Health Department'],
+        'gas_leak': ['Fire Department', 'Hazardous Materials (HazMat) Team'],
+        'electrical_hazard': ['Electrical Utility Company', 'Fire Department'],
+        'hazardous_materials': ['Hazardous Materials (HazMat) Response', 'Environmental Protection Agency'],
+        'flooding': ['Emergency Management', 'Flood Control Department'],
+        'earthquake': ['Emergency Management', 'Geological Survey Department'],
+        'typhoon': ['National Disaster Risk Reduction and Management Council (NDRRMC)', 'Emergency Management'],
+        'animal_attack': ['Animal Control', 'Emergency Medical Services (EMS)'],
+        'terrorist_threat': ['Counter-Terrorism Unit', 'National Security Agency'],
+        'building_collapse': ['Fire Department', 'Rescue and Emergency Response'],
+        'public_disturbance': ['Public Safety', 'Police Department'],
+        'child_abuse': ['Child Protective Services', 'Social Services'],
+        'elderly_abuse': ['Adult Protective Services', 'Social Services']
+    }
+
+    # Get the department name of the logged-in user
+    user_department_name = request.user.department.name
+
+    # Filter categories where the user's department is involved
+    relevant_categories = [
+        category for category, departments in category_to_department.items()
+        if user_department_name in departments
+    ]
+    
+    # Get incidents that match the relevant categories
+    incidents = IncidentReport.objects.filter(category__in=relevant_categories)
+
     return render(request, 'incident/list.html', {'incidents': incidents})
+
 
 #Incident Detail View
 def incident_detail_view(request, pk):

@@ -117,7 +117,7 @@ class IncidentReport(models.Model):
     longitude = models.FloatField(null=True, blank=True)
     timestamp = models.DateTimeField(auto_now_add=True)
 
-    department = models.ForeignKey('Department', on_delete=models.CASCADE, related_name='incidents', null=True, blank=True)
+    # department = models.ForeignKey('Department', on_delete=models.CASCADE, related_name='incidents', null=True, blank=True)
 
     def __str__(self):
         return f'Incident {self.reportid} - {self.status}'

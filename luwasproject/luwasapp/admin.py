@@ -29,9 +29,9 @@ class EstablishmentAdmin(admin.ModelAdmin):
     search_fields = ('name', 'location', 'department__name')
 
 class IncidentReportAdmin(admin.ModelAdmin):
-    list_display = ('reportid', 'incident_type', 'severity', 'status', 'location', 'timestamp', 'category', 'department')
-    search_fields = ('incident_type', 'severity', 'status', 'location', 'department__name')
-    list_filter = ('incident_type', 'severity', 'status', 'timestamp', 'department')
+    list_display = ('reportid', 'incident_type', 'severity', 'status', 'location', 'timestamp', 'category')
+    search_fields = ('incident_type', 'severity', 'status', 'location')
+    list_filter = ('incident_type', 'severity', 'status', 'timestamp')
 
 class IncidentAssignmentAdmin(admin.ModelAdmin):
     list_display = ('user', 'incident_report', 'notification_sent', 'assigned_at')
