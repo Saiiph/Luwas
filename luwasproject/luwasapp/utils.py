@@ -1,13 +1,13 @@
 import requests
 
-def get_geolocation_data():
-    api_key = "01e65699cfb6490490e283bd64dc465c"
-    base_url = "https://ipgeolocation.abstractapi.com/v1/"
-    params = {
-        "api_key": api_key,
-    }
+def get_location_from_coordinates(lat, lng):
+    api_key = '0addd8efb8194cebb0d715a1cb3d980d'
+    url = f'https://api.opencagedata.com/geocode/v1/json?q={lat}+{lng}&key={api_key}'
+    response = requests.get(url)
+    data = response.json()
     
-    response = requests.get(base_url, params=params)
-    if response.status_code == 200:
-        return response.json()
-    return None
+    if data['status']['code'] == 200:
+        address = data['results'][0]['formatted']
+        return address
+    else:
+        return "Location Not Found!"

@@ -4,7 +4,8 @@ from django.contrib.auth.forms import AuthenticationForm
 
 from .forms import SignupForm, LoginForm, IncidentReportForm
 from .models import IncidentReport
-from .utils import get_geolocation_data
+
+from .utils import get_location_from_coordinates
 
 #Homepage view
 def home_view(request):
@@ -37,46 +38,32 @@ def login_view(request):
         form = LoginForm()
     return render(request, 'general/login.html', {'form': form})
 
-#Create Incident View
+# Create Incident View
 def incident_create_view(request):
     if request.method == 'POST':
         form = IncidentReportForm(request.POST)
         if form.is_valid():
-            # Get geolocation data
-            geolocation_data = get_geolocation_data()  # Optionally pass the user's IP address
-            if geolocation_data:
-                city = geolocation_data.get("city", "Unknown City")
-                country = geolocation_data.get("country", "Unknown Country")
-                latitude = geolocation_data.get("latitude")
-                longitude = geolocation_data.get("longitude")
-                location = f"{city}, {country}"
+            # Extract latitude and longitude from the form
+            latitude = form.cleaned_data['latitude']
+            longitude = form.cleaned_data['longitude']
+            
+            # Get the location from the form (the value set by JavaScript)
+            location = form.cleaned_data['location']
 
-                # Save form with additional data
-                incident = form.save(commit=False)
-                incident.location = location
-                incident.latitude = latitude
-                incident.longitude = longitude
-                incident.save()
+            # Save the form with additional data
+            incident = form.save(commit=False)
+            incident.latitude = latitude
+            incident.longitude = longitude
+            incident.location = location
+            incident.save()
 
-                return redirect('home')  # Redirect to a home page
+            return redirect('home')  # Redirect to a home page
     else:
-        # Prepopulate location data for display
-        geolocation_data = get_geolocation_data()
-        initial_data = {}
-        if geolocation_data:
-            city = geolocation_data.get("city", "Unknown City")
-            country = geolocation_data.get("country", "Unknown Country")
-            latitude = geolocation_data.get("latitude")
-            longitude = geolocation_data.get("longitude")
-            location = f"{city}, {country}"
-            initial_data = {
-                'location': location,
-                'latitude': latitude,
-                'longitude': longitude,
-            }
-        form = IncidentReportForm(initial=initial_data)
+        # Prepopulate form
+        form = IncidentReportForm()
 
     return render(request, 'incident/create.html', {'form': form})
+
 
 
 #Incident List View
