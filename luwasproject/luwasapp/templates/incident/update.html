@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Update Incident Report</title>
+</head>
+<body>
+    <h2>Update Incident Report</h2>
+    <form method="post">
+        {% csrf_token %}
+        <div>
+            <label for="id_incident_type">Incident Type:</label>
+            {{ form.incident_type }}
+        </div>
+        <div>
+            <label for="id_severity">Severity:</label>
+            {{ form.severity }}
+        </div>
+        <div>
+            <label for="id_category">Category:</label>
+            {{ form.category }}
+        </div>
+        <div>
+            <label for="id_location">Location:</label>
+            {{ form.location }}
+        </div>
+        <div>
+            <label for="id_latitude">Latitude:</label>
+            {{ form.latitude }}
+        </div>
+        <div>
+            <label for="id_longitude">Longitude:</label>
+            {{ form.longitude }}
+        </div>
+        <div>
+            <label for="id_status">Status:</label>
+            {{ form.status }}
+        </div>
+        <button type="submit">Update</button>
+    </form>
+    <a href="{% url 'incident_detail' incident.pk %}">Cancel</a>
+</body>
+</html>

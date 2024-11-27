@@ -1,0 +1,26 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Sidebar</title>
+    <link rel="stylesheet" href="{% static 'sidebar.css' %}">
+    <!-- Add Font Awesome CDN for icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <h2>Luwas</h2>
+        </div>
+        <ul class="sidebar-menu">
+            <li><a href="#" class="menu-item"><i class="icon fas fa-clipboard-list"></i> Incident List</a></li>
+            <li><a href="#" class="menu-item"><i class="icon fas fa-shield-alt"></i> Appointed Duty</a></li>
+            <li><a href="#" class="menu-item"><i class="icon fas fa-user"></i> Profile</a></li>
+            <li><a href="#" class="menu-item"><i class="icon fas fa-cogs"></i> Settings</a></li>
+            <li><a href="{% url 'logout' %}" class="menu-item"><i class="icon fas fa-power-off"></i> Logout</a></li>
+        </ul>
+    </div>
+</body>
+</html>

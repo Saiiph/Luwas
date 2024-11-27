@@ -1,0 +1,102 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+/* Global styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Poppins, Segoe UI, sans-serif;
+}
+
+/* body {
+    font-family: Poppins, Segoe UI, sans-serif;
+    display: flex;
+    height: 100vh;
+    background-color: #f7f7f8; 
+    color: #4F4F4F; 
+} */
+
+/* Sidebar styles */
+.sidebar {
+    width: 280px; /* Increase the sidebar width to accommodate the hover effect */
+    background-color: #FF5A5F; /* Airbnb Red */
+    color: white;
+    display: flex;
+    flex-direction: column;
+    padding-top: 40px;
+    position: fixed;
+    height: 100%;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    border-radius: 0 15px 15px 0; /* Rounded corners */
+    padding-bottom: 20px; /* Added some bottom padding for the last menu item */
+}
+
+
+.sidebar-header {
+    text-align: center;
+    margin-bottom: 30px;
+    margin-left: -15px; /* Add some left margin for consistency */
+}
+
+.sidebar-header h2 {
+    font-size: 40px; /* Slightly larger header */
+    font-weight: bold;
+    letter-spacing: 1px;
+    color: white;
+    margin: 0;
+}
+
+.sidebar-menu {
+    list-style: none;
+    width: 100%;
+    padding: 0;
+    margin-top: 20px;
+    margin-left: 30px; /* Moves the menu items slightly to the right */
+}
+
+.sidebar-menu li {
+    width: 100%;
+}
+
+.menu-item {
+    display: flex;
+    align-items: center;
+    padding: 18px 25px;
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: 500;
+    transition: background-color 0.3s ease, padding-left 0.3s ease;
+    border-radius: 5px; /* Soft rounded corners for menu items */
+    margin: 20px 0;
+    width: 230px;
+}
+
+.menu-item .icon {
+    margin-right: 20px;
+    font-size: 20px; /* Ensures the icons are a bit bigger and more visible */
+}
+
+.menu-item:hover {
+    background-color: #FFB6B9; /* Soft pink for hover state */
+    padding-left: 30px;
+    
+}
+
+/* Add subtle hover effects on sidebar items */
+.menu-item:active {
+    background-color: #FAD02E; /* A light yellow for active states */
+    color: white;
+    
+}
+
+/* Ensure the sidebar header and menu items are vertically aligned */
+.sidebar-header, .sidebar-menu {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center align both header and menu items */
+}
+
+.sidebar-menu li:first-child .menu-item {
+    margin-top: 0; /* Remove margin from the first menu item for a neat look */
+}

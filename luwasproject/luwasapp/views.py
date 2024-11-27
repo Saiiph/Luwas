@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseForbidden
@@ -35,10 +35,21 @@ def login_view(request):
             user = authenticate(username=username, password=password)
             if user is not None:
                 login(request, user)
-                return redirect('home')  # Redirect to Dashboard
+                return redirect('dashboard')  # Redirect to Dashboard
     else:
         form = LoginForm()
     return render(request, 'general/login.html', {'form': form})
+
+#Logout view
+def logout_view(request):
+    logout(request)
+    return redirect('home')  # Redirect to the home page after logout
+
+# Dashboard view
+@login_required
+def dashboard_view(request):
+    return render(request, 'general/dashboard.html',)
+
 
 # Create Incident View
 def incident_create_view(request):
@@ -66,7 +77,33 @@ def incident_create_view(request):
 
     return render(request, 'incident/create.html', {'form': form})
 
+@login_required
+#Incident Detail View
+def incident_detail_view(request, pk):
+    incident = get_object_or_404(IncidentReport, pk=pk)
+    return render(request, 'incident/detail.html', {'incident': incident})
 
+#Update Incident View
+@login_required
+def incident_update_view(request, pk):
+    incident = get_object_or_404(IncidentReport, pk=pk)
+    if request.method == 'POST':
+        form = IncidentReportForm(request.POST, instance=incident)
+        if form.is_valid():
+            form.save()
+            return redirect('incident_detail', pk=pk)
+    else:
+        form = IncidentReportForm(instance=incident)
+    return render(request, 'incident/update.html', {'form': form, 'incident': incident})
+
+#Delete Incident View
+@login_required
+def incident_delete_view(request, pk):
+    incident = get_object_or_404(IncidentReport, pk=pk)
+    if request.method == 'POST':
+        incident.delete()
+        return redirect('incident_list')
+    return render(request, 'incident/delete.html', {'incident': incident})
 
 @login_required
 def incident_list_view(request):
@@ -112,9 +149,3 @@ def incident_list_view(request):
     incidents = IncidentReport.objects.filter(category__in=relevant_categories)
 
     return render(request, 'incident/list.html', {'incidents': incidents})
-
-
-#Incident Detail View
-def incident_detail_view(request, pk):
-    incident = get_object_or_404(IncidentReport, pk=pk)
-    return render(request, 'incident/detail.html', {'incident': incident})

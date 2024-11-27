@@ -7,9 +7,13 @@
     <h1>Incident Report Detail</h1>
     <p>Incident Type: {{ incident.incident_type }}</p>
     <p>Severity: {{ incident.severity }}</p>
-    <p>Categpry: {{ incident.category }}</p>
+    <p>Category: {{ incident.category }}</p>
     <p>Status: {{ incident.status }}</p>
     <p>Location: {{ incident.location }}</p>
     <p>Timestamp: {{ incident.timestamp }}</p>
+
+    <a href="{% url 'incident_update' incident.pk %}"><button>Update</button></a>
+    <a href="{% url 'incident_delete' incident.pk %}"><button>Delete</button></a>
+    <a href="{% url 'incident_list' %}"><button>Back to List</button></a>
 </body>
 </html>

@@ -110,7 +110,7 @@ class IncidentReport(models.Model):
     incident_type = models.CharField(max_length=100)
     severity = models.CharField(max_length=25, choices=SEVERITY_CHOICES)
     category = models.CharField(max_length=255, choices=CATEGORY_CHOICES, blank=True)
-    status = models.CharField(max_length=255, choices=STATUS_CHOICES, default= "reported")
+    status = models.CharField(max_length=255, choices=STATUS_CHOICES, default= "reported", blank=True)
 
     location = models.CharField(max_length=255)    
     latitude = models.FloatField(null=True, blank=True)

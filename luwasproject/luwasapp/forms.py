@@ -14,7 +14,7 @@ class LoginForm(AuthenticationForm):
 class IncidentReportForm(forms.ModelForm):
     class Meta:
         model = IncidentReport
-        fields = ['incident_type', 'severity', 'category', 'location', 'latitude', 'longitude']
+        fields = ['incident_type', 'severity', 'category', 'location', 'latitude', 'longitude', 'status']
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
