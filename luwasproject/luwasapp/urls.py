@@ -10,6 +10,9 @@ urlpatterns = [
     path('logout/', views.logout_view, name='logout'),
 
     # User Management
+
+    path('update_user/', views.update_user_view, name='update_user'),
+    path('delete_user/', views.delete_user_view, name='delete_user'),
     
     # Incident Reports Management
     path('incidents/new/', views.incident_create_view, name='incident_create'),

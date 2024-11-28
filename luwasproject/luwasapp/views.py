@@ -5,14 +5,22 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseForbidden
 
 from .forms import SignupForm, LoginForm, IncidentReportForm
-from .models import IncidentReport
+from .models import IncidentReport, Establishment, Department
 
 from .utils import get_location_from_coordinates
 
+
+#======================================================GENERAL VIEW======================================================#
 #Homepage view
 def home_view(request):
     return render(request, 'general/home.html')
 
+# Dashboard view
+@login_required
+def dashboard_view(request):
+    return render(request, 'general/dashboard.html',)
+
+#======================================================USER VIEW======================================================#
 #Signup view
 def signup_view(request):
     if request.method == 'POST':
@@ -45,11 +53,38 @@ def logout_view(request):
     logout(request)
     return redirect('home')  # Redirect to the home page after logout
 
-# Dashboard view
+# Update Account view
 @login_required
-def dashboard_view(request):
-    return render(request, 'general/dashboard.html',)
+def update_user_view(request):
+    user = request.user
+    departments = Department.objects.all()
+    establishments = Establishment.objects.all()
+    if request.method == 'POST':
+        user.username = request.POST['username']
+        user.email = request.POST['email']
+        user.first_name = request.POST['first_name']
+        user.last_name = request.POST['last_name']
+        user.contact_information = request.POST['contact_information']
+        user.address = request.POST['address']
+        user.profession = request.POST['profession']
+        user.birth_date = request.POST['birth_date']
+        user.department_id = request.POST['department']
+        user.establishment_id = request.POST['establishment']
+        user.save()
+        return redirect('home')
+    return render(request, 'profile/update_user.html', {'user': user, 'departments': departments, 'establishments': establishments})
 
+# Delete Account view
+@login_required
+def delete_user_view(request):
+    user = request.user
+    if request.method == 'POST':
+        user.delete()
+        return redirect('login')
+    return render(request, 'profile/delete_user.html', {'user': user})
+
+
+#======================================================INCIDENT VIEW======================================================#
 
 # Create Incident View
 def incident_create_view(request):
