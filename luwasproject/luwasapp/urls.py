@@ -20,4 +20,8 @@ urlpatterns = [
     path('incidents/<int:pk>/', views.incident_detail_view, name='incident_detail'), 
     path('incidents/<int:pk>/update/', views.incident_update_view, name='incident_update'),
     path('incidents/<int:pk>/delete/', views.incident_delete_view, name='incident_delete'),
+
+    #Incident Assignment Management
+    path('assignments/', views.incident_assignment_list, name='incident_assignment_list'),
+
 ]

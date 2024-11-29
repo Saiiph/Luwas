@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseForbidden
 
 from .forms import SignupForm, LoginForm, IncidentReportForm
-from .models import IncidentReport, Establishment, Department
+from .models import IncidentReport, Establishment, Department, IncidentAssignment
 
 from .utils import get_location_from_coordinates
 
@@ -112,11 +112,13 @@ def incident_create_view(request):
 
     return render(request, 'incident/create.html', {'form': form})
 
-@login_required
+
 #Incident Detail View
+@login_required
 def incident_detail_view(request, pk):
     incident = get_object_or_404(IncidentReport, pk=pk)
-    return render(request, 'incident/detail.html', {'incident': incident})
+    is_assigned = IncidentAssignment.objects.filter(incident_report=incident, user=request.user).exists()
+    return render(request, 'incident/detail.html', {'incident': incident, 'is_assigned': is_assigned})
 
 #Update Incident View
 @login_required
@@ -184,3 +186,12 @@ def incident_list_view(request):
     incidents = IncidentReport.objects.filter(category__in=relevant_categories)
 
     return render(request, 'incident/list.html', {'incidents': incidents})
+
+
+#============================
+
+@login_required
+def incident_assignment_list(request):
+    assignments = IncidentAssignment.objects.filter(user=request.user)
+    return render(request, 'incident_assignment/incident_assignment_list.html', {'assignments': assignments})
+

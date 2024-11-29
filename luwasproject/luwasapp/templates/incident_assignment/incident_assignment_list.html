@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Incident Assignments</title>
+</head>
+<body>
+    <h1>Incident Assignments</h1>
+    <ul>
+        {% for assignment in assignments %}
+            <li>
+                {{ assignment.user.username }} assigned to 
+                <a href="{% url 'incident_detail' assignment.incident_report.pk %}">
+                    Incident {{ assignment.incident_report.reportid }}: {{ assignment.incident_report.title }}
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
