@@ -3,24 +3,98 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard Sidebar</title>
+    <!-- Boxincons CDN Link -->
     <link rel="stylesheet" href="{% static 'sidebar.css' %}">
-    <!-- Add Font Awesome CDN for icons -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
     <div class="sidebar">
-        <div class="sidebar-header">
-            <h2>Luwas</h2>
+
+        <div class="logo_content">
+
+            <div class="logo">
+
+                <i class='bx bxl-vk' ></i>
+                <div class="logo_name">Luwas</div> 
+
+            </div>
+
+            <i class='bx bx-menu' id="btn"></i>
         </div>
-        <ul class="sidebar-menu">
-            <li><a href="#" class="menu-item"><i class="icon fas fa-clipboard-list"></i> Incident List</a></li>
-            <li><a href="#" class="menu-item"><i class="icon fas fa-shield-alt"></i> Appointed Duty</a></li>
-            <li><a href="#" class="menu-item"><i class="icon fas fa-user"></i> Profile</a></li>
-            <li><a href="#" class="menu-item"><i class="icon fas fa-cogs"></i> Settings</a></li>
-            <li><a href="{% url 'logout' %}" class="menu-item"><i class="icon fas fa-power-off"></i> Logout</a></li>
+        <ul class="nav_list">
+            <li>
+                <a href="#">
+                    <i class='bx bx-grid-alt'></i>
+                    <span class="links_name">Dashboard</span>
+                </a>
+                <span class="tooltip">Dashboard</span>
+            </li>
+            <li>
+                <a href="#">
+                    <i class='bx bx-notepad'></i>
+                    <span class="links_name">Incident List</span>
+                </a>
+                <span class="tooltip">Incident List</span>
+            </li>
+            <li>
+                <a href="#">
+                    <i class='bx bx-shield'></i>
+                    <span class="links_name">Assignment</span>
+                </a>
+                <span class="tooltip">Assignment</span>
+            </li>
+            <li>
+                <a href="#">
+                    <i class='bx bx-user'></i>
+                    <span class="links_name">Profile</span>
+                </a>
+                <span class="tooltip">Profile</span>
+            </li>
+            <li>
+                <a href="#">
+                    <i class='bx bx-cog'></i>
+                    <span class="links_name">Settings</span>
+                </a>
+                <span class="tooltip">Settings</span>
+            </li>
         </ul>
+        <div class="profile_content">
+            <div class="profile">
+                <div class="profile_details">
+                    <img src="{% static 'image/LairPfp.jpg' %}" alt="">
+                    <div class="name_job">
+                        <div class="name">{{ user.first_name }} {{ user.last_name }}</div>
+                        <div class="job">{{ user.profession }}</div>
+                    </div>
+                </div>
+                <i class='bx bx-log-out' id="log_out"></i>
+            </div>
+        </div>
     </div>
+
+    <div class="home_content">
+        <div class="text">Home Content</div>
+    </div>
+
+
+    <script>
+        let btn = document.querySelector("#btn");
+        let sidebar = document.querySelector(".sidebar");
+        let logOutBtn = document.querySelector("#log_out");
+
+        btn.onclick = function() {
+            console.log("Button clicked");
+            sidebar.classList.toggle("active");
+        }
+
+        logOutBtn.onclick = function() {
+            window.location.href = "{% url 'logout' %}";  // Replace 'logout' with your actual logout URL name
+        }
+    
+    </script>
+
+    
 </body>
 </html>

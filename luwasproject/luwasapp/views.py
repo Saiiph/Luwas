@@ -18,7 +18,10 @@ def home_view(request):
 # Dashboard view
 @login_required
 def dashboard_view(request):
-    return render(request, 'general/dashboard.html',)
+    context = {
+        'user': request.user,
+    }
+    return render(request, 'general/dashboard.html',context)
 
 #======================================================USER VIEW======================================================#
 #Signup view

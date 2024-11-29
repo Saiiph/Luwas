@@ -8,95 +8,248 @@
     font-family: Poppins, Segoe UI, sans-serif;
 }
 
-/* body {
-    font-family: Poppins, Segoe UI, sans-serif;
-    display: flex;
-    height: 100vh;
-    background-color: #f7f7f8; 
-    color: #4F4F4F; 
-} */
+body {
+    position: relative;
+    min-height: 100vh;
+    width: 100%;
+    overflow: hidden;
+    background-color: #f7f7f7; /* Airbnb's soft gray background */
+}
 
-/* Sidebar styles */
+/* Sidebar */
 .sidebar {
-    width: 280px; /* Increase the sidebar width to accommodate the hover effect */
-    background-color: #FF5A5F; /* Airbnb Red */
-    color: white;
-    display: flex;
-    flex-direction: column;
-    padding-top: 40px;
     position: fixed;
+    left: 0;
+    top: 0;
     height: 100%;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
-    border-radius: 0 15px 15px 0; /* Rounded corners */
-    padding-bottom: 20px; /* Added some bottom padding for the last menu item */
+    width: 78px;
+    background: #ffffff; /* Neutral white */
+    border-right: 1px solid #ebebeb; /* Light gray border */
+    padding: 6px 14px;
+    transition: all 0.5s ease;
 }
 
+.active {
+    width: 250px;
+}
 
-.sidebar-header {
+.sidebar .logo_content .logo {
+    color: #ff5a5f; /* Airbnb coral red */
+    display: flex;
+    height: 40px;
+    width: 100%;
+    margin-top: 10px;
+    margin-left: 20px;
+    align-items: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.5s ease;
+}
+
+.active .logo_content .logo {
+    opacity: 1;
+    pointer-events: none;
+}
+
+.logo_content .logo i {
+    font-size: 28px;
+    margin-right: 5px;
+}
+
+.logo_content .logo .logo_name {
+    font-size: 20px;
+    font-weight: 400;
+}
+
+.sidebar #btn {
+    position: absolute;
+    color: #ff5a5f; /* Airbnb coral red */
+    top: 6px;
+    left: 55%;
+    font-size: 20px;
+    height: 50px;
+    width: 50px;
     text-align: center;
-    margin-bottom: 30px;
-    margin-left: -15px; /* Add some left margin for consistency */
+    line-height: 50px;
+    transform: translateX(-50%);
 }
 
-.sidebar-header h2 {
-    font-size: 40px; /* Slightly larger header */
-    font-weight: bold;
-    letter-spacing: 1px;
-    color: white;
-    margin: 0;
+.active #btn {
+    left: 90%;
 }
 
-.sidebar-menu {
-    list-style: none;
-    width: 100%;
-    padding: 0;
+.sidebar ul {
     margin-top: 20px;
-    margin-left: 30px; /* Moves the menu items slightly to the right */
 }
 
-.sidebar-menu li {
+.sidebar ul li {
+    position: relative;
+    height: 50px;
     width: 100%;
+    margin: 0 5px;
+    list-style: none;
+    line-height: 50px;
 }
 
-.menu-item {
+.sidebar ul li .tooltip {
+    position: absolute;
+    left: 122px;
+    top: 0;
+    transform: translate(-50%, -50%);
+    border-radius: 6px;
+    height: 35px;
+    width: 122px;
+    background: #ffffff; /* White for tooltip */
+    line-height: 35px;
+    text-align: center;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    transition: 0s;
+    opacity: 0;
+    pointer-events: none;
+    display: block;
+}
+
+.active ul li .tooltip {
+    display: none;
+}
+
+.sidebar ul li:hover .tooltip {
+    transition: all 0.5 ease;
+    opacity: 1;
+    top: 50%;
+}
+
+.sidebar ul li a {
+    color: #555555; /* Neutral gray */
     display: flex;
     align-items: center;
-    padding: 18px 25px;
-    color: white;
     text-decoration: none;
-    font-size: 18px;
-    font-weight: 500;
-    transition: background-color 0.3s ease, padding-left 0.3s ease;
-    border-radius: 5px; /* Soft rounded corners for menu items */
-    margin: 20px 0;
-    width: 230px;
+    transition: all 0.4s ease;
+    border-radius: 12px;
+    white-space: nowrap;
 }
 
-.menu-item .icon {
-    margin-right: 20px;
-    font-size: 20px; /* Ensures the icons are a bit bigger and more visible */
+.sidebar ul li a:hover {
+    color: #ffffff; /* White text on hover */
+    background: #ff5a5f; /* Airbnb coral red */
 }
 
-.menu-item:hover {
-    background-color: #FFB6B9; /* Soft pink for hover state */
-    padding-left: 30px;
-    
+.sidebar ul li i {
+    height: 50px;
+    min-width: 50px;
+    border-radius: 12px;
+    line-height: 50px;
+    text-align: center;
 }
 
-/* Add subtle hover effects on sidebar items */
-.menu-item:active {
-    background-color: #FAD02E; /* A light yellow for active states */
-    color: white;
-    
+.sidebar .links_name {
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.5s ease;
 }
 
-/* Ensure the sidebar header and menu items are vertically aligned */
-.sidebar-header, .sidebar-menu {
+.active .links_name {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.sidebar .profile_content {
+    position: absolute;
+    color: #555555; /* Neutral gray for text */
+    bottom: 0;
+    left: 0;
+    width: 100%;
+}
+
+.sidebar .profile_content .profile {
+    position: relative;
+    padding: 10px 6px;
+    height: 60px;
+    background: #f7f7f7; /* Light gray for profile */
+    transition: all 0.4s ease;
+}
+
+.active .profile_content .profile {
+    background: none;
+}
+
+.profile_content .profile .profile_details {
     display: flex;
-    flex-direction: column;
-    align-items: center; /* Center align both header and menu items */
+    align-items: center;
+    opacity: 0;
+    pointer-events: none;
+    white-space: nowrap;
 }
 
-.sidebar-menu li:first-child .menu-item {
-    margin-top: 0; /* Remove margin from the first menu item for a neat look */
+.active .profile .profile_details {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.profile .profile_details img {
+    height: 45px;
+    width: 45px;
+    object-fit: cover;
+    border-radius: 12px;
+}
+
+.profile .profile_details .name_job {
+    margin-left: 10px;
+}
+
+.profile .profile_details .name {
+    font-size: 15px;
+    font-weight: 400;
+}
+
+.profile .profile_details .job {
+    font-size: 12px;
+    color: #888888; /* Light gray for job title */
+}
+
+.profile #log_out {
+    position: absolute;
+    left: 50%;
+    bottom: 5px;
+    transform: translateX(-50%);
+    min-width: 50px;
+    line-height: 50px;
+    font-size: 20px;
+    border-radius: 12px;
+    text-align: center;
+    transition: all 0.4s ease;
+}
+
+.profile #log_out:hover {
+    color: #ffffff; /* White text on hover */
+    background: #ff5a5f; /* Airbnb coral red */
+    cursor: pointer;
+}
+
+.active .profile #log_out {
+    left: 88%;
+}
+
+.active .profile #logo_out {
+    background: #f7f7f7;
+}
+
+.home_content {
+    position: absolute;
+    height: 100%;
+    width: calc(100% - 78px);
+    left: 78px;
+    transition: all 0.5s ease;
+}
+
+.home_content .text {
+    font-size: 25px;
+    font-weight: 500;
+    color: #333333; /* Darker gray for text */
+    margin: 12px;
+}
+
+.active ~ .home_content {
+    width: calc(100% - 240px);
+    left: 250px;
 }
