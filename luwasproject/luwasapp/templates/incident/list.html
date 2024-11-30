@@ -1,17 +1,38 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Incident Reports</title>
-</head>
-<body>
+{% extends 'general/base.html' %}
+{% load static %}
+
+
+{% block title %}Incident Reports{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'list.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="incident-reports-container">
     <h1>Incident Reports</h1>
-    <a href="{% url 'incident_create' %}">Create New Incident Report</a>
+    <a href="{% url 'incident_create' %}" class="create-incident-btn">Create New Incident Report</a>
     <ul>
         {% for incident in incidents %}
             <li>
-                <a href="{% url 'incident_detail' incident.pk %}">{{ incident.incident_type }} - {{ incident.status }}</a>
+                <!-- Add the incident image -->
+                <img src="{{ incident.image.url }}" alt="Incident Image">
+                <!-- Make the entire card clickable -->
+                <a href="{% url 'incident_detail' incident.pk %}" class="card-link">
+                    
+
+                    <!-- Information about the incident -->
+                    <div class="incident-info">
+                        <h3>{{ incident.incident_type }}</h3>
+                        <p><span>Category:</span> {{ incident.category }}</p>
+                        <p><span>Status:</span> {{ incident.status }}</p>
+                    </div>
+                </a>
             </li>
         {% endfor %}
     </ul>
-</body>
-</html>
+</div>
+{% endblock %}
+
+
+

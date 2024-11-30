@@ -56,6 +56,24 @@ def logout_view(request):
     logout(request)
     return redirect('home')  # Redirect to the home page after logout
 
+#User Profile view
+@login_required
+def user_profile_view(request):
+    user = request.user
+    context = {
+        'username': user.username,
+        'email': user.email,
+        'first_name': user.first_name,
+        'last_name': user.last_name,
+        'contact_information': user.contact_information,
+        'address': user.address,
+        'profession': user.profession,
+        'birth_date': user.birth_date,
+        'department': user.department,
+        'establishment': user.establishment,
+    }
+    return render(request, 'profile/user_profile.html', context)
+
 # Update Account view
 @login_required
 def update_user_view(request):

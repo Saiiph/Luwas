@@ -1,0 +1,75 @@
+/* Scoped to the unique container */
+.incident-reports-container {
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    padding: 20px;
+}
+
+.incident-reports-container ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
+
+.incident-reports-container ul li {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.2s, box-shadow 0.2s;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+.incident-reports-container ul li:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+}
+
+.incident-reports-container ul li img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-bottom: 1px solid #ddd;
+}
+
+.incident-reports-container ul li .incident-info {
+    padding: 12px;
+}
+
+.incident-reports-container ul li .incident-info h3 {
+    font-size: 1em;
+    color: #333;
+    margin: 0 0 8px;
+}
+
+.incident-reports-container ul li .incident-info p {
+    margin: 0 0 4px;
+    font-size: 0.8em;
+    color: #666;
+}
+
+.incident-reports-container ul li .incident-info p span {
+    font-weight: bold;
+}
+
+.incident-reports-container .create-incident-btn {
+    display: inline-block;
+    background: #007bff;
+    color: #fff;
+    text-decoration: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    font-weight: bold;
+    transition: background 0.2s;
+    margin-bottom: 20px;
+}
+
+.incident-reports-container .create-incident-btn:hover {
+    background: #0056b3;
+}

@@ -1,15 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
-</head>
-<body>
+{% extends 'general/base.html' %}
+{% load static %}
 
-    <div>
-        {% include 'general/sidebar.html' %}
-    </div>
+{% block title %}Dashboard{% endblock %}
 
-</body>
-</html>
+{% block content %}
+    <h1>Welcome to the Dashboard</h1>
+    <!-- Add your dashboard specific content here -->
+{% endblock %}

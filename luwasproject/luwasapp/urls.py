@@ -11,6 +11,7 @@ urlpatterns = [
 
     # User Management
 
+    path('profile/', views.user_profile_view, name='user_profile'),
     path('update_user/', views.update_user_view, name='update_user'),
     path('delete_user/', views.delete_user_view, name='delete_user'),
     

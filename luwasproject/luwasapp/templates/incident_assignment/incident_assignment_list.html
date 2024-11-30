@@ -1,9 +1,14 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Incident Assignments</title>
-</head>
-<body>
+{% extends 'general/base.html' %}
+{% load static %}
+
+{% block title %}Incident Assignments{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'list.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="incident-reports-container">
     <h1>Incident Assignments</h1>
     <ul>
         {% for assignment in assignments %}
@@ -15,5 +20,5 @@
             </li>
         {% endfor %}
     </ul>
-</body>
-</html>
+</div>
+{% endblock %}

@@ -1,0 +1,18 @@
+{% extends 'general/base.html' %}
+{% load static %}
+
+{% block title %}User Profile{% endblock %}
+
+{% block content %}
+    <h1>User Profile</h1>
+    <p><strong>Username:</strong> {{ user.username }}</p>
+    <p><strong>Email:</strong> {{ user.email }}</p>
+    <p><strong>First Name:</strong> {{ user.first_name }}</p>
+    <p><strong>Last Name:</strong> {{ user.last_name }}</p>
+    <p><strong>Contact Information:</strong> {{ user.contact_information }}</p>
+    <p><strong>Address:</strong> {{ user.address }}</p>
+    <p><strong>Profession:</strong> {{ user.profession }}</p>
+    <p><strong>Birth Date:</strong> {{ user.birth_date }}</p>
+    <p><strong>Department:</strong> {{ user.department.name }}</p>
+    <p><strong>Establishment:</strong> {{ user.establishment.name }}</p>
+{% endblock %}
