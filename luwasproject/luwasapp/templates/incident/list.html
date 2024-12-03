@@ -11,26 +11,32 @@
 {% block content %}
 <div class="incident-reports-container">
     <h1>Incident Reports</h1>
-    <a href="{% url 'incident_create' %}" class="create-incident-btn">Create New Incident Report</a>
-    <ul>
-        {% for incident in incidents %}
-            <li>
-                <!-- Add the incident image -->
-                <img src="{{ incident.image.url }}" alt="Incident Image">
-                <!-- Make the entire card clickable -->
-                <a href="{% url 'incident_detail' incident.pk %}" class="card-link">
-                    
 
-                    <!-- Information about the incident -->
-                    <div class="incident-info">
-                        <h3>{{ incident.incident_type }}</h3>
-                        <p><span>Category:</span> {{ incident.category }}</p>
-                        <p><span>Status:</span> {{ incident.status }}</p>
-                    </div>
-                </a>
-            </li>
+    <div class="incident-columns">
+        {% for status, incidents in incidents_by_status.items %}
+            <div class="incident-column">
+                <h2>{{ status|title }}</h2>
+                <div class="incident-list-column">
+                    <ul>
+                        {% for incident in incidents %}
+                            <li>
+                                <img src="{{ incident.image.url }}" alt="Incident Image">
+                                <a href="{% url 'incident_detail' incident.pk %}" class="card-link">
+                                    <div class="incident-info">
+                                        <h3>{{ incident.incident_type }}</h3>
+                                        <p><span>Category:</span> {{ incident.category }}</p>
+                                        <p><span>Status:</span> {{ incident.status }}</p>
+                                    </div>
+                                </a>
+                            </li>
+                        {% empty %}
+                            <li>No incidents found for this status.</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
         {% endfor %}
-    </ul>
+    </div>
 </div>
 {% endblock %}
 

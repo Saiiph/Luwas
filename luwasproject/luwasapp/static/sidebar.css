@@ -240,6 +240,7 @@ body {
     width: calc(100% - 78px);
     left: 78px;
     transition: all 0.5s ease;
+    overflow: auto;
 }
 
 .home_content .text {

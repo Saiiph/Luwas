@@ -203,16 +203,33 @@ def incident_list_view(request):
         if user_department_name in departments
     ]
     
-    # Get incidents that match the relevant categories
-    incidents = IncidentReport.objects.filter(category__in=relevant_categories)
+    # Group incidents by their status
+    statuses = ['reported', 'in_progress', 'resolved', 'closed']
+    incidents_by_status = {
+        status: IncidentReport.objects.filter(
+            category__in=relevant_categories, status=status
+        ).order_by('-timestamp')
+        for status in statuses
+    }
 
-    return render(request, 'incident/list.html', {'incidents': incidents})
+    return render(request, 'incident/list.html', {'incidents_by_status': incidents_by_status})
 
 
-#============================
+#============================Incident Assignment====================================================================
 
 @login_required
 def incident_assignment_list(request):
     assignments = IncidentAssignment.objects.filter(user=request.user)
     return render(request, 'incident_assignment/incident_assignment_list.html', {'assignments': assignments})
 
+
+
+#====================================Admin View=====================================================================
+
+
+
+
+
+#get list of users
+#be able to update users info
+#assign user to incidents

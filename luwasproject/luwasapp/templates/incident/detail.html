@@ -2,6 +2,23 @@
 <html>
 <head>
     <title>Incident Report Detail</title>
+    <style>
+        /* Simple styling for the map container */
+        .map-container {
+            width: 100%;
+            max-width: 600px;
+            margin: 20px auto;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .map-container iframe {
+            width: 100%;
+            height: 450px;
+            border: none;
+        }
+    </style>
 </head>
 <body>
     <h1>Incident Report Detail</h1>
@@ -10,7 +27,17 @@
     <p>Category: {{ incident.category }}</p>
     <p>Status: {{ incident.status }}</p>
     <p>Location: {{ incident.location }}</p>
+    <p>Latitude: {{ incident.latitude }}</p>
+    <p>Longitude: {{ incident.longitude }}</p>
     <p>Timestamp: {{ incident.timestamp }}</p>
+
+    <!-- Map container to display the incident's Street View -->
+    <div class="map-container">
+        <iframe
+            src="https://www.google.com/maps/embed?pb=!1m0!3m2!1sen!2sus!4v0!6m8!1m7!1sCAoSLEFGMVFpcFBxRzJXZW9LUVlfNjU4aF9fZmMxa0FCWmVpdmFSRk5MR0Q0!2m2!1d{{ incident.latitude }}!2d{{ incident.longitude }}!3f0!4f0!5f1.2"
+            allowfullscreen>
+        </iframe>
+    </div>
 
     {% if is_assigned %}
         <a href="{% url 'incident_update' incident.pk %}"><button>Update</button></a>
