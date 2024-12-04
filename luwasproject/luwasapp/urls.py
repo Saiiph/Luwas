@@ -24,6 +24,7 @@ urlpatterns = [
 
     #Incident Assignment Management
     path('assignments/', views.incident_assignment_list, name='incident_assignment_list'),
+    path('admin/assign/', views.assign_user_to_incident_admin, name='assign_user'),
 
     #Admin
      path('admin/users/', views.list_users_view, name='list_users'),

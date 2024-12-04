@@ -1,0 +1,42 @@
+{% extends 'general/base.html' %}
+{% load static %}
+
+
+{% block title %}Incident Reports{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="">
+{% endblock %}
+
+{% block content %}
+<h1>Assign User to Incident</h1>
+
+{% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+{% endif %}
+
+<form method="post">
+    {% csrf_token %}
+    <label for="user">Select User:</label>
+    <select name="user" id="user">
+        {% for user in users %}
+            <option value="{{ user.id }}">{{ user.username }}</option>
+        {% endfor %}
+    </select>
+    <br>
+    <label for="incident">Select Incident:</label>
+    <select name="incident" id="incident">
+        {% for incident in incidents %}
+            <option value="{{ incident.reportid }}">Incident  {{ incident.reportid }} - {{ incident.category }} - {{ incident.status }}</option>
+        {% endfor %}
+    </select>
+    <br>
+    <button type="submit">Assign</button>
+</form>
+<a href="{% url 'admin:index' %}">Back to Admin Dashboard</a>
+
+{% endblock %}

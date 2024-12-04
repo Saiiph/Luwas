@@ -3,6 +3,7 @@ from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseForbidden
+from django.contrib import messages
 
 
 from .forms import SignupForm, LoginForm, IncidentReportForm
@@ -223,7 +224,29 @@ def incident_assignment_list(request):
     assignments = IncidentAssignment.objects.filter(user=request.user)
     return render(request, 'incident_assignment/incident_assignment_list.html', {'assignments': assignments})
 
+@user_passes_test(lambda u: u.is_superuser)
+def assign_user_to_incident_admin(request):
+    users = User.objects.all()
+    incidents = IncidentReport.objects.all()
 
+    if request.method == 'POST':
+        user_id = request.POST['user']
+        incident_reportid = request.POST['incident']
+        user = get_object_or_404(User, id=user_id)
+        incident = get_object_or_404(IncidentReport, reportid=incident_reportid)
+
+        assignment, created = IncidentAssignment.objects.get_or_create(
+            user=user,
+            incident_report=incident
+        )
+        if created:
+            messages.success(request, f'{user.username} has been assigned to Incident {incident.reportid}.')
+        else:
+            messages.info(request, f'{user.username} is already assigned to Incident {incident.reportid}.')
+
+        return redirect('assign_user')
+
+    return render(request, 'incident_assignment/assign_user.html', {'users': users, 'incidents': incidents})
 
 #====================================Admin View=====================================================================
 @staff_member_required
