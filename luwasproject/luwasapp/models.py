@@ -40,7 +40,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     department = models.ForeignKey('Department', on_delete=models.CASCADE, related_name='users', null=True, blank=True)
     establishment = models.ForeignKey('Establishment', on_delete=models.CASCADE, related_name='users', null=True, blank=True)
     is_active = models.BooleanField(default=True)
-    is_staff = models.BooleanField(default=True)  
+    is_staff = models.BooleanField(default=False)  
     date_joined = models.DateTimeField(auto_now_add=True)
 
     objects = CustomUserManager()

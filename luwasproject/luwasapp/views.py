@@ -4,10 +4,15 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseForbidden
 
+
 from .forms import SignupForm, LoginForm, IncidentReportForm
-from .models import IncidentReport, Establishment, Department, IncidentAssignment
+from .models import IncidentReport, Establishment, Department, IncidentAssignment, User
 
 from .utils import get_location_from_coordinates
+
+
+from django.contrib.auth.decorators import user_passes_test
+from django.contrib.admin.views.decorators import staff_member_required
 
 
 #======================================================GENERAL VIEW======================================================#
@@ -78,8 +83,6 @@ def user_profile_view(request):
 @login_required
 def update_user_view(request):
     user = request.user
-    departments = Department.objects.all()
-    establishments = Establishment.objects.all()
     if request.method == 'POST':
         user.username = request.POST['username']
         user.email = request.POST['email']
@@ -89,11 +92,9 @@ def update_user_view(request):
         user.address = request.POST['address']
         user.profession = request.POST['profession']
         user.birth_date = request.POST['birth_date']
-        user.department_id = request.POST['department']
-        user.establishment_id = request.POST['establishment']
         user.save()
-        return redirect('home')
-    return render(request, 'profile/update_user.html', {'user': user, 'departments': departments, 'establishments': establishments})
+        return redirect('user_profile')
+    return render(request, 'profile/update_user.html', {'user': user})
 
 # Delete Account view
 @login_required
@@ -225,10 +226,35 @@ def incident_assignment_list(request):
 
 
 #====================================Admin View=====================================================================
+@staff_member_required
+def list_users_view(request):
+    users = User.objects.all()
+    return render(request, 'admin/list_users.html', {'users': users})
 
 
-
-
+@user_passes_test(lambda u: u.is_superuser)
+def edit_user_view(request, user_id):
+    user = get_object_or_404(User, id=user_id)
+    departments = Department.objects.all()
+    establishments = Establishment.objects.all()
+    
+    if request.method == 'POST':
+        user.username = request.POST['username']
+        user.email = request.POST['email']
+        user.first_name = request.POST['first_name']
+        user.last_name = request.POST['last_name']
+        user.profession = request.POST['profession']
+        user.department_id = request.POST['department']
+        user.establishment_id = request.POST['establishment']
+        user.save()
+        return redirect('list_users')
+    
+    context = {
+        'user': user,
+        'departments': departments,
+        'establishments': establishments
+    }
+    return render(request, 'admin/edit_user.html', context)
 
 #get list of users
 #be able to update users info

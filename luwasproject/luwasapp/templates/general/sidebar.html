@@ -43,6 +43,16 @@
             </a>
             <span class="tooltip">Settings</span>
         </li>
+        <!-- Admin Actions -->
+        {% if request.user.is_superuser %}
+        <li>
+            <a href="{%url 'list_users' %}">
+                <i class='bx bx-cog'></i>
+                <span class="links_name">Admin</span>
+            </a>
+            <span class="tooltip">Settings</span>
+        </li>
+        {% endif %}
     </ul>
     <div class="profile_content">
         <div class="profile">
