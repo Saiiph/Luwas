@@ -206,7 +206,7 @@ def incident_list_view(request):
     ]
     
     # Group incidents by their status
-    statuses = ['reported', 'in_progress', 'resolved', 'closed']
+    statuses = ['reported', 'resolved', 'closed']
     incidents_by_status = {
         status: IncidentReport.objects.filter(
             category__in=relevant_categories, status=status

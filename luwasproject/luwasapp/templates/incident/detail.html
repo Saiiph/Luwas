@@ -1,48 +1,73 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Incident Report Detail</title>
-    <style>
-        /* Simple styling for the map container */
-        .map-container {
-            width: 100%;
-            max-width: 600px;
-            margin: 20px auto;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-        .map-container iframe {
-            width: 100%;
-            height: 450px;
-            border: none;
-        }
-    </style>
-</head>
-<body>
-    <h1>Incident Report Detail</h1>
-    <p>Incident Type: {{ incident.incident_type }}</p>
-    <p>Severity: {{ incident.severity }}</p>
-    <p>Category: {{ incident.category }}</p>
-    <p>Status: {{ incident.status }}</p>
-    <p>Location: {{ incident.location }}</p>
-    <p>Latitude: {{ incident.latitude }}</p>
-    <p>Longitude: {{ incident.longitude }}</p>
-    <p>Timestamp: {{ incident.timestamp }}</p>
+{% extends 'general/base.html' %}
+{% load static %}
 
-    <!-- Map container to display the incident's Street View -->
-    <div class="map-container">
-        <iframe
-            src="https://www.google.com/maps/embed?pb=!1m0!3m2!1sen!2sus!4v0!6m8!1m7!1sCAoSLEFGMVFpcFBxRzJXZW9LUVlfNjU4aF9fZmMxa0FCWmVpdmFSRk5MR0Q0!2m2!1d{{ incident.latitude }}!2d{{ incident.longitude }}!3f0!4f0!5f1.2"
-            allowfullscreen>
-        </iframe>
+{% block title %}Incident Report Detail{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'incident_detail.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="incident-detail-container">
+    <div class="incident-header">
+        <h1>Incident Report Detail {{ incident.reportid }}</h1>
     </div>
 
-    {% if is_assigned %}
-        <a href="{% url 'incident_update' incident.pk %}"><button>Update</button></a>
-        <a href="{% url 'incident_delete' incident.pk %}"><button>Delete</button></a>
-    {% endif %}
-    <a href="{% url 'incident_list' %}"><button>Back to List</button></a>
-</body>
-</html>
+    <div class="incident-body">
+        <!-- Left side: Map and Location Details -->
+        <div class="left-side">
+            <div class="map-container">
+                <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m0!3m2!1sen!2sus!4v0!6m8!1m7!1sCAoSLEFGMVFpcFBxRzJXZW9LUVlfNjU4aF9fZmMxa0FCWmVpdmFSRk5MR0Q0!2m2!1d{{ incident.latitude }}!2d{{ incident.longitude }}!3f0!4f0!5f1.2"
+                    allowfullscreen>
+                </iframe>
+            </div>
+
+            <!-- Location, Latitude, Longitude -->
+            <div class="location-info">
+                <div>{{ incident.location }}</div>
+            </div>
+        </div>
+
+        <!-- Right side: Remaining Information -->
+        <div class="right-side">
+            <div class="incident-info">
+                <div class="incident-info-item">
+                    <span class="label">Incident ID:</span> {{ incident.reportid }}
+                </div>
+                <div class="incident-info-item">
+                    <span class="label">Incident Type:</span> {{ incident.incident_type }}
+                </div>
+                <div class="incident-info-item">
+                    <span class="label">Severity:</span> {{ incident.severity }}
+                </div>
+                <div class="incident-info-item">
+                    <span class="label">Category:</span> {{ incident.category }}
+                </div>
+                <div class="incident-info-item">
+                    <span class="label">Status:</span> {{ incident.status }}
+                </div>
+                <div class="incident-info-item">
+                    <span class="label">Timestamp:</span> {{ incident.timestamp }}
+                </div>
+                <div class="incident-info-item">
+                    <span class="label">Latitude:</span> {{ incident.latitude }}
+                </div>
+                <div class="incident-info-item">
+                    <span class="label">Longitude:</span> {{ incident.longitude }}
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="action-buttons">
+                {% if is_assigned %}
+                    <a href="{% url 'incident_update' incident.pk %}"><button class="update">Update</button></a>
+                    <a href="{% url 'incident_delete' incident.pk %}"><button class="delete">Delete</button></a>
+                {% endif %}
+                <a href="{% url 'incident_list' %}"><button class="back">Back to List</button></a>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

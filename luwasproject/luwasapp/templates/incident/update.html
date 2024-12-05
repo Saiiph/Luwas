@@ -1,42 +1,79 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Update Incident Report</title>
-</head>
-<body>
-    <h2>Update Incident Report</h2>
-    <form method="post">
-        {% csrf_token %}
-        <div>
-            <label for="id_incident_type">Incident Type:</label>
-            {{ form.incident_type }}
+{% extends 'general/base.html' %}
+{% load static %}
+
+{% block title %}Update Incident Report{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'incident_detail.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="incident-detail-container">
+    <div class="incident-header">
+        <h1>Update Incident Report {{ incident.reportid }}</h1>
+    </div>
+
+    <div class="incident-body">
+        <!-- Left side: Map and Location Details -->
+        <div class="left-side">
+            <div class="map-container">
+                <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m0!3m2!1sen!2sus!4v0!6m8!1m7!1sCAoSLEFGMVFpcFBxRzJXZW9LUVlfNjU4aF9fZmMxa0FCWmVpdmFSRk5MR0Q0!2m2!1d{{ incident.latitude }}!2d{{ incident.longitude }}!3f0!4f0!5f1.2"
+                    allowfullscreen>
+                </iframe>
+            </div>
+
+            <!-- Location, Latitude, Longitude -->
+            <div class="location-info">
+                <div>{{ form.location.value }}</div>
+            </div>
         </div>
-        <div>
-            <label for="id_severity">Severity:</label>
-            {{ form.severity }}
+
+        <!-- Right side: Form Details -->
+        <div class="right-side">
+            <form method="post">
+                {% csrf_token %}
+                <div class="incident-info">
+                    <div class="incident-info-item">
+                        <span class="label"><label for="id_incident_type">Incident Type:</label></span>
+                        <input type="text" id="id_incident_type" name="incident_type" value="{{ form.incident_type.value }}" readonly>
+                    </div>
+                    <div class="incident-info-item">
+                        <span class="label"><label for="id_severity">Severity:</label></span>
+                        <input type="text" id="id_severity" name="severity" value="{{ form.severity.value }}" readonly>
+                    </div>
+                    <div class="incident-info-item">
+                        <span class="label"><label for="id_category">Category:</label></span>
+                        <input type="text" id="id_category" name="category" value="{{ form.category.value }}" readonly>
+                    </div>  
+                    <div class="incident-info-item">
+                        <span class="label"><label for="id_location">Location:</label></span>
+                        <input type="text" id="id_location" name="location" value="{{ form.location.value }}" readonly>
+                    </div>
+                    <div class="incident-info-item">
+                        <span class="label"><label for="id_latitude">Latitude:</label></span>
+                        <input type="text" id="id_latitude" name="latitude" value="{{ form.latitude.value }}" readonly>
+                    </div>
+                    <div class="incident-info-item">
+                        <span class="label"><label for="id_longitude">Longitude:</label></span>
+                        <input type="text" id="id_longitude" name="longitude" value="{{ form.longitude.value }}" readonly>
+                    </div>
+                    <div class="incident-info-item">
+                        <span class="label"><label for="id_status">Status:</label></span>
+                        {{ form.status }}
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="action-buttons">
+                    <button type="submit" class="update">Update</button>
+                    <a href="{% url 'incident_detail' incident.pk %}">
+                        <button type="button" class="back">Cancel</button>
+                    </a>
+                </div>
+            </form>
         </div>
-        <div>
-            <label for="id_category">Category:</label>
-            {{ form.category }}
-        </div>
-        <div>
-            <label for="id_location">Location:</label>
-            {{ form.location }}
-        </div>
-        <div>
-            <label for="id_latitude">Latitude:</label>
-            {{ form.latitude }}
-        </div>
-        <div>
-            <label for="id_longitude">Longitude:</label>
-            {{ form.longitude }}
-        </div>
-        <div>
-            <label for="id_status">Status:</label>
-            {{ form.status }}
-        </div>
-        <button type="submit">Update</button>
-    </form>
-    <a href="{% url 'incident_detail' incident.pk %}">Cancel</a>
-</body>
-</html>
+    </div>
+</div>
+
+{% endblock %}

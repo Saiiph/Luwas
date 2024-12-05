@@ -76,7 +76,6 @@ class IncidentReport(models.Model):
 
     STATUS_CHOICES = [
         ('reported', 'Reported'),
-        ('in_progress', 'In Progress'),
         ('resolved', 'Resolved'),
         ('closed', 'Closed'),
     ]

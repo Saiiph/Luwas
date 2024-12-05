@@ -1,0 +1,75 @@
+/* Scope styles to the .delete-container only */
+.delete-container {
+    background-color: #f9f9f9; /* Light gray background */
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid #e0e0e0;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    width: 100%;
+    height: 50%;
+    max-width: 600px; /* Maximum width for the content */
+    text-align: center;
+    margin: 0 auto; /* Center the container horizontally */
+    display: flex;
+    margin-top: 15%;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Make headings and text specific to the delete-container */
+.delete-container h2 {
+    font-size: 2rem;
+    color: #484848;
+    margin-bottom: 15px;
+}
+
+.delete-container p {
+    font-size: 1rem;
+    color: #484848;
+    margin-bottom: 20px;
+}
+
+/* Flexbox container for buttons inside delete-container */
+.delete-container .button-container {
+    display: flex;
+    justify-content: center; /* Center buttons horizontally */
+    gap: 20px; /* Space between the buttons */
+    width: auto; /* Let buttons take up only as much width as necessary */
+    flex-wrap: nowrap; /* Prevent wrapping of buttons */
+}
+
+/* Button and link styles scoped within delete-container */
+.delete-container button,
+.delete-container a {
+    padding: 12px 20px;
+    font-size: 1rem;
+    text-decoration: none;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+    max-width: 150px; /* Limits the width of the buttons */
+}
+
+/* Confirm delete button style inside delete-container */
+.delete-container button {
+    background-color: #FF5A5F; /* Coral primary color */
+    color: #ffffff;
+}
+
+.delete-container button:hover {
+    transform: translateY(-2px);
+    background-color: #D84044; /* Darker coral for hover */
+}
+
+/* Cancel link button style inside delete-container */
+.delete-container a {
+    background-color: #00A699; /* Teal color */
+    color: #ffffff;
+}
+
+.delete-container a:hover {
+    transform: translateY(-2px);
+    background-color: #007A68; /* Darker teal for hover */
+}

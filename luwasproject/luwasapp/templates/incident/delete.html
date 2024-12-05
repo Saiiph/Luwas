@@ -1,15 +1,24 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Delete Incident Report</title>
-</head>
-<body>
-    <h2>Delete Incident Report</h2>
+
+{% extends 'general/base.html' %}
+{% load static %}
+
+{% block title %}Update Incident Report{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'delete.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="delete-container">
+    <h2>Delete Incident Report {{ incident.reportid }}</h2>
     <p>Are you sure you want to delete this incident report?</p>
     <form method="post">
         {% csrf_token %}
-        <button type="submit">Confirm</button>
+        <div class="button-container">
+            <button type="submit">Confirm</button>
+            <a href="{% url 'incident_detail' incident.pk %}">Cancel</a>
+        </div>
     </form>
-    <a href="{% url 'incident_detail' incident.pk %}">Cancel</a>
+</div>
 </body>
-</html>
+{% endblock %}

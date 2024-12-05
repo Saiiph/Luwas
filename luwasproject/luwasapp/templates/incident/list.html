@@ -23,47 +23,47 @@
                                     <img src="{{ incident.image.url }}" alt="Incident Image">
                                 {% else %}
                                     {% if incident.category == 'medical_emergency' %}
-                                    <img src="{% static 'images/placeholder_medical_emergency.jpg' %}" alt="Medical Emergency Placeholder">
+                                    <img src="{% static 'placeholder/placeholder_medical_emergency.jpg' %}" alt="Medical Emergency Placeholder">
                                     {% elif incident.category == 'fire_incident' %}
-                                    <img src="{% static 'images/placeholder_fire_incident.jpg' %}" alt="Fire Incident Placeholder">
+                                    <img src="{% static 'placeholder/placeholder_fire_incident.jpg' %}" alt="Fire Incident Placeholder">
                                     {% elif incident.category == 'road_accident' %}
-                                    <img src="{% static 'images/placeholder_road_accident.jpg' %}" alt="Road Accident Placeholder">
+                                    <img src="{% static 'placeholder/placeholder_road_accident.jpg' %}" alt="Road Accident Placeholder">
                                     {% elif incident.category == 'natural_disaster' %}
-                                    <img src="{% static 'images/placeholder_natural_disaster.jpg' %}" alt="Natural Disaster Placeholder">
+                                    <img src="{% static 'placeholder/placeholder_natural_disaster.jpg' %}" alt="Natural Disaster Placeholder">
                                     {% elif incident.category == 'crime_related' %}
-                                    <img src="{% static 'images/placeholder_crime_related.jpg' %}" alt="Crime Related Placeholder">
+                                    <img src="{% static 'placeholder/placeholder_crime_related.jpg' %}" alt="Crime Related Placeholder">
                                     {% elif incident.category == 'domestic_violence' %}
-                                    <img src="{% static 'images/placeholder_domestic_violence.jpg' %}" alt="Domestic Violence Placeholder">
+                                    <img src="{% static 'placeholder/placeholder_domestic_violence.jpg' %}" alt="Domestic Violence Placeholder">
                                     {% elif incident.category == 'psychological_crisis' %}
-                                    <img src="{% static 'images/placeholder_psychological_crisis.jpg' %}" alt="Psychological Crisis Placeholder">
+                                    <img src="{% static 'placeholder/placeholder_psychological_crisis.jpg' %}" alt="Psychological Crisis Placeholder">
                                     {% elif incident.category == 'missing_person' %}
-                                    <img src="{% static 'images/placeholder_missing_person.jpg' %}" alt="Missing Person Placeholder">
+                                    <img src="{% static 'placeholder/placeholder_missing_person.jpg' %}" alt="Missing Person Placeholder">
                                     {% elif incident.category == 'poisoning' %}
-                                    <img src="{% static 'images/placeholder_poisoning.jpg' %}" alt="Poisoning Placeholder">
+                                    <img src="{% static 'placeholder/placeholder_poisoning.jpg' %}" alt="Poisoning Placeholder">
                                     {% elif incident.category == 'gas_leak' %}
-                                    <img src="{% static 'images/placeholder_gas_leak.jpg' %}" alt="Gas Leak Placeholder">
+                                    <img src="{% static 'placeholder/placeholder_gas_leak.jpg' %}" alt="Gas Leak Placeholder">
                                     {% elif incident.category == 'electrical_hazard' %}
-                                    <img src="{% static 'images/placeholder_electrical_hazard.jpg' %}" alt="Electrical Hazard Placeholder">
+                                    <img src="{% static 'placeholder/placeholder_electrical_hazard.jpg' %}" alt="Electrical Hazard Placeholder">
                                     {% elif incident.category == 'hazardous_materials' %}
-                                    <img src="{% static 'images/placeholder_hazardous_materials.jpg' %}" alt="Hazardous Materials Spill Placeholder">
+                                    <img src="{% static 'placeholder/placeholder_hazardous_materials.jpg' %}" alt="Hazardous Materials Spill Placeholder">
                                     {% elif incident.category == 'flooding' %}
-                                    <img src="{% static 'images/placeholder_flooding.jpg' %}" alt="Flooding Placeholder">
+                                    <img src="{% static 'placeholder/placeholder_flooding.jpg' %}" alt="Flooding Placeholder">
                                     {% elif incident.category == 'earthquake' %}
-                                    <img src="{% static 'images/placeholder_earthquake.jpg' %}" alt="Earthquake Placeholder">
+                                    <img src="{% static 'placeholder/placeholder_earthquake.jpg' %}" alt="Earthquake Placeholder">
                                     {% elif incident.category == 'typhoon' %}
-                                    <img src="{% static 'images/placeholder_typhoon.jpg' %}" alt="Typhoon Placeholder">
+                                    <img src="{% static 'placeholder/placeholder_typhoon.jpg' %}" alt="Typhoon Placeholder">
                                     {% elif incident.category == 'animal_attack' %}
-                                    <img src="{% static 'images/placeholder_animal_attack.jpg' %}" alt="Animal Attack Placeholder">
+                                    <img src="{% static 'placeholder/placeholder_animal_attack.jpg' %}" alt="Animal Attack Placeholder">
                                     {% elif incident.category == 'terrorist_threat' %}
-                                    <img src="{% static 'images/placeholder_terrorist_threat.jpg' %}" alt="Terrorist Threat/Attack Placeholder">
+                                    <img src="{% static 'placeholder/placeholder_terrorist_threat.jpg' %}" alt="Terrorist Threat/Attack Placeholder">
                                     {% elif incident.category == 'building_collapse' %}
-                                    <img src="{% static 'images/placeholder_building_collapse.jpg' %}" alt="Building Collapse Placeholder">
+                                    <img src="{% static 'placeholder/placeholder_building_collapse.jpg' %}" alt="Building Collapse Placeholder">
                                     {% elif incident.category == 'public_disturbance' %}
-                                    <img src="{% static 'images/placeholder_public_disturbance.jpg' %}" alt="Public Disturbance Placeholder">
+                                    <img src="{% static 'placeholder/placeholder_public_disturbance.jpg' %}" alt="Public Disturbance Placeholder">
                                     {% elif incident.category == 'child_abuse' %}
-                                    <img src="{% static 'images/placeholder_child_abuse.jpg' %}" alt="Child Abuse Placeholder">
+                                    <img src="{% static 'placeholder/placeholder_child_abuse.jpg' %}" alt="Child Abuse Placeholder">
                                     {% elif incident.category == 'elderly_abuse' %}
-                                    <img src="{% static 'images/placeholder_elderly_abuse.jpg' %}" alt="Elderly Abuse Placeholder">
+                                    <img src="{% static 'placeholder/placeholder_elderly_abuse.jpg' %}" alt="Elderly Abuse Placeholder">
                                     {% endif %}
                                 {% endif %}
                                 <a href="{% url 'incident_detail' incident.pk %}" class="card-link">
