@@ -1,4 +1,9 @@
 {% extends "general/base.html" %}
+
+{% load static %}
+
+{% block title %}Admin Panel Edit{% endblock %}
+
 {% block content %}
 <h2>Edit User</h2>
 <form method="post">
@@ -19,19 +24,22 @@
     <input type="text" id="profession" name="profession" value="{{ user.profession }}"><br>
     
     <label for="department">Department:</label>
-    <select id="department" name="department">
+    <select id="department" name="department" onchange="this.form.submit()">
+        <option value="">-- Select Department --</option>
         {% for department in departments %}
-        <option value="{{ department.id }}" {% if user.department_id == department.id %}selected{% endif %}>{{ department.name }}</option>
+        <option value="{{ department.id }}" {% if department.id == department_id %}selected{% endif %}>{{ department.name }}</option>
         {% endfor %}
     </select><br>
     
     <label for="establishment">Establishment:</label>
     <select id="establishment" name="establishment">
+        <option value="">-- Select Establishment --</option>
         {% for establishment in establishments %}
-        <option value="{{ establishment.id }}" {% if user.establishment_id == establishment.id %}selected{% endif %}>{{ establishment.name }}</option>
+        <option value="{{ establishment.id }}" {% if establishment.id == user.establishment_id %}selected{% endif %}>{{ establishment.name }}</option>
         {% endfor %}
     </select><br>
     
-    <button type="submit">Save</button>
+    <button type="submit" name="save">Save</button>
 </form>
+
 {% endblock %}

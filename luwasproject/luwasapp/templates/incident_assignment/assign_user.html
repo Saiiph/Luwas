@@ -1,41 +1,151 @@
 {% extends 'general/base.html' %}
 {% load static %}
 
-
 {% block title %}Incident Reports{% endblock %}
 
 {% block extra_css %}
-    <link rel="stylesheet" href="">
+    <style>
+        /* General page container */
+        .incident-assignment {
+            font-family: 'Arial', sans-serif;
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 800px;
+            margin: 120px auto;
+        }
+
+        /* Header styles */
+        .incident-assignment h1 {
+            font-size: 28px;
+            font-weight: bold;
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        /* Message styles */
+        .incident-assignment .messages {
+            list-style-type: none;
+            padding: 0;
+            margin-bottom: 20px;
+        }
+
+        .incident-assignment .messages li {
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 4px;
+        }
+
+        .incident-assignment .messages li.success {
+            background-color: #d4edda;
+            color: #155724;
+        }
+
+        .incident-assignment .messages li.error {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+
+        .incident-assignment .messages li.warning {
+            background-color: #fff3cd;
+            color: #856404;
+        }
+
+        /* Form styling */
+        .incident-assignment form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .incident-assignment label {
+            font-size: 16px;
+            color: #333;
+            font-weight: bold;
+        }
+
+        .incident-assignment select {
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            background-color: #fff;
+            color: #333;
+        }
+
+        .incident-assignment button {
+            padding: 12px 20px;
+            background-color: #FF5A5F; /* Airbnb's primary color */
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            margin-top: 20px;
+            align-self: center;
+            width: 740px;
+        }
+
+        .incident-assignment button:hover {
+            background-color: #E13C47; /* Slightly darker shade of red for hover effect */
+        }
+
+
+        /* Responsive design */
+        @media (max-width: 600px) {
+            .incident-assignment {
+                padding: 20px;
+                margin: 20px;
+            }
+
+            .incident-assignment h1 {
+                font-size: 24px;
+            }
+
+            .incident-assignment form {
+                gap: 10px;
+            }
+
+            .incident-assignment label, .incident-assignment select, .incident-assignment button {
+                font-size: 14px;
+            }
+        }
+    </style>
 {% endblock %}
 
 {% block content %}
-    <h1>Assign User to Incident</h1>
+    <div class="incident-assignment">
+        <h1>Assign User to Incident</h1>
 
-    {% if messages %}
-        <ul class="messages">
-            {% for message in messages %}
-                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-            {% endfor %}
-        </ul>
-    {% endif %}
+        {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
 
-    <form method="post">
-        {% csrf_token %}
-        <label for="user">Select User:</label>
-        <select name="user" id="user">
-            {% for user in users %}
-                <option value="{{ user.id }}">{{ user.username }} - {{user.department}}</option>
-            {% endfor %}
-        </select>
-        <br>
-        <label for="incident">Select Incident:</label>
-        <select name="incident" id="incident">
-            {% for incident in incidents %}
-                <option value="{{ incident.reportid }}">Incident  {{ incident.reportid }} - {{ incident.category }} - {{ incident.status }}</option>
-            {% endfor %}
-        </select>
-        <br>
-        <button type="submit">Assign</button>
-    </form>
+        <form method="post">
+            {% csrf_token %}
+            <label for="user">Select User:</label>
+            <select name="user" id="user">
+                {% for user in users %}
+                    <option value="{{ user.id }}">{{ user.username }} - {{user.department}}</option>
+                {% endfor %}
+            </select>
 
+            <label for="incident">Select Incident:</label>
+            <select name="incident" id="incident">
+                {% for incident in incidents %}
+                    <option value="{{ incident.reportid }}">Incident {{ incident.reportid }} - {{ incident.category }} - {{ incident.status }}</option>
+                {% endfor %}
+            </select>
+
+            <button type="submit">Assign</button>
+        </form>
+    </div>
 {% endblock %}
+    

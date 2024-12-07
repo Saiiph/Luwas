@@ -3,6 +3,7 @@ from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseForbidden
+
 from django.contrib import messages
 
 
@@ -255,30 +256,42 @@ def list_users_view(request):
     return render(request, 'admin/list_users.html', {'users': users})
 
 
+
 @user_passes_test(lambda u: u.is_superuser)
 def edit_user_view(request, user_id):
     user = get_object_or_404(User, id=user_id)
     departments = Department.objects.all()
-    establishments = Establishment.objects.all()
-    
+
+    # Get the selected department from the GET parameters (or use the user's current department)
+    department_id = request.GET.get('department', user.department_id)
+
+    # Fetch establishments based on the selected department
+    establishments = Establishment.objects.filter(department_id=department_id)
+
     if request.method == 'POST':
+        # Update user information with the form data
         user.username = request.POST['username']
         user.email = request.POST['email']
         user.first_name = request.POST['first_name']
         user.last_name = request.POST['last_name']
         user.profession = request.POST['profession']
-        user.department_id = request.POST['department']
-        user.establishment_id = request.POST['establishment']
+
+        if 'department' in request.POST:
+            user.department_id = request.POST['department']
+            user.establishment_id = request.POST.get('establishment', None)  
+        
         user.save()
-        return redirect('list_users')
-    
+        
+        if 'save' in request.POST:
+            return redirect('list_users')
+        else:
+            return redirect('edit_user', user_id=user.id)
+
     context = {
         'user': user,
         'departments': departments,
-        'establishments': establishments
+        'establishments': establishments,
+        'department_id': department_id  
     }
     return render(request, 'admin/edit_user.html', context)
 
-#get list of users
-#be able to update users info
-#assign user to incidents

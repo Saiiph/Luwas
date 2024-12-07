@@ -5,28 +5,127 @@
 {% block title %}Admin Panel{% endblock %}
 
 {% block extra_css %}
-    <link rel="stylesheet" href="">
+    <style>
+        /* Admin panel container */
+        .admin-panel {
+            font-family: 'Arial', sans-serif;
+            background-color: #f7f7f7;
+            padding: 20px;
+            margin-top: 30px;
+        }
+
+        /* Header styles */
+        .admin-panel .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .admin-panel h2 {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+            margin: 0;
+        }
+
+        /* Assign button styles */
+        .admin-panel .btn-assign {
+            padding: 10px 20px;
+            background-color: #ff5a5f;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .admin-panel .btn-assign:hover {
+            background-color: #e04e56;
+        }
+
+        /* Table styles */
+        .admin-panel table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .admin-panel th, .admin-panel td {
+            padding: 14px;
+            text-align: left;
+            font-size: 16px;
+            color: #333;
+        }
+
+        /* Table header styles */
+        .admin-panel th {
+            background-color: #ff5a5f;
+            color: #fff;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Row styling */
+        .admin-panel tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        .admin-panel tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        /* Link styles */
+        .admin-panel a {
+            color: #ff5a5f;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .admin-panel a:hover {
+            color: #ff5a5f;
+        }
+    </style>
 {% endblock %}
+
 {% block content %}
-<h2>List of Users</h2>
-<table>
-    <tr>
-        <th>Username</th>
-        <th>First Name</th>
-        <th>Last Name</th>
-        <th>Department</th>
-        <th>Establishment</th>
-    </tr>
-    {% for user in users %}
-    <tr>
-        <td>{{ user.username }}</td>
-        <td>{{ user.first_name }}</td>
-        <td>{{ user.last_name }}</td>
-        <td>{{ user.department }}</td>
-        <td>{{ user.establishment }}</td>
-        
-        <td><a href="{% url 'edit_user' user.id %}">Edit</a></td>
-    </tr>
-    {% endfor %}
-</table>
+<div class="admin-panel">
+    <div class="header-container">
+        <h2>List of Users</h2>
+        <a href="{% url 'assign_user' %}">
+            <button class="btn-assign">Assign New User</button>
+        </a>
+    </div>
+    
+    <table>
+        <thead>
+            <tr>
+                <th>Username</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Department</th>
+                <th>Establishment</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in users %}
+            <tr>
+                <td>{{ user.username }}</td>
+                <td>{{ user.first_name }}</td>
+                <td>{{ user.last_name }}</td>
+                <td>{{ user.department }}</td>
+                <td>{{ user.establishment }}</td>
+                <td>
+                    <a href="{% url 'edit_user' user.id %}">Edit</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
 {% endblock %}
