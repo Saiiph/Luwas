@@ -94,6 +94,10 @@ def update_user_view(request):
         user.address = request.POST['address']
         user.profession = request.POST['profession']
         user.birth_date = request.POST['birth_date']
+        
+        if 'profile_image' in request.FILES:
+            user.profile_image = request.FILES['profile_image']
+        
         user.save()
         return redirect('user_profile')
     return render(request, 'profile/update_user.html', {'user': user})

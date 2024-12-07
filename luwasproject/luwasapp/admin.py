@@ -5,14 +5,14 @@ from .models import User, Department, Establishment, IncidentReport, IncidentAss
 class UserAdmin(BaseUserAdmin):
     fieldsets = (
         (None, {'fields': ('username', 'email', 'password')}),
-        ('Personal info', {'fields': ('first_name', 'last_name', 'contact_information', 'address', 'profession', 'birth_date', 'department', 'establishment')}),
+        ('Personal info', {'fields': ('first_name', 'last_name', 'contact_information', 'address', 'profession', 'birth_date', 'department', 'establishment', 'profile_image')}),
         ('Permissions', {'fields': ('is_active', 'is_staff', 'is_superuser', 'groups', 'user_permissions')}), 
         ('Important dates', {'fields': ('last_login', 'date_joined')}),
     )
     add_fieldsets = (
         (None, {
             'classes': ('wide',),
-            'fields': ('username', 'email', 'password1', 'password2', 'first_name', 'last_name', 'contact_information', 'address', 'profession', 'birth_date', 'department', 'establishment'),
+            'fields': ('username', 'email', 'password1', 'password2', 'first_name', 'last_name', 'contact_information', 'address', 'profession', 'birth_date', 'department', 'establishment', 'profile_image'),
         }),
     )
     list_display = ('username', 'email', 'first_name', 'last_name', 'is_staff')

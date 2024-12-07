@@ -10,7 +10,7 @@
 {% block content %}
     <div class="container">
         <h2>User Profile</h2>
-        <form method="post" class="form">
+        <form method="post" class="form" enctype="multipart/form-data">
             {% csrf_token %}
             
             <!-- Username and Email on the same row -->
@@ -60,6 +60,22 @@
                     <input type="date" id="birth_date" name="birth_date" value="{{ user.birth_date|date:"Y-m-d" }}">
                 </div>
             </div>
+
+           <!-- Profile Image -->
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="profile_image">Profile Image</label>
+                    <input type="file" id="profile_image" name="profile_image">
+                </div>
+                <div class="form-group">
+                    {% if user.profile_image %}
+                        <img src="{{ user.profile_image.url }}" alt="Current Profile Image" class="profile-image">
+                    {% else %}
+                        <img src="{% static 'image/LairPfp.jpg' %}" alt="Default Profile Image" class="profile-image">
+                    {% endif %}
+                </div>
+            </div>
+
             <div class="button-container">
                 <button type="submit" class="btn btn-primary">Update</button>
                 <button type="button" class="btn btn-danger" onclick="deleteAccount()">Delete Account</button>
@@ -70,7 +86,7 @@
 
     <script>
         function deleteAccount() {
-                window.location.href = "{% url 'delete_user' %}";
+            window.location.href = "{% url 'delete_user' %}";
         }
     </script>
 {% endblock %}

@@ -125,3 +125,10 @@ h2 {
         width: 100%;
     }
 }
+
+.profile-image {
+    max-width: 200px;
+    max-height: 200px;
+    float: center;
+    margin-left: 50px; /* Optional: Add some space between the image and the form */
+}

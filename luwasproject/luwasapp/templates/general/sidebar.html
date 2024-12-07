@@ -57,7 +57,11 @@
     <div class="profile_content">
         <div class="profile">
             <div class="profile_details">
-                <img src="{% static 'image/LairPfp.jpg' %}" alt="">
+                {% if user.profile_image %}
+                <img src="{{ user.profile_image.url }}" alt="User Avatar">
+                {% else %}
+                    <img src="{% static 'image/LairPfp.jpg' %}" alt="User Avatar">
+                {% endif %}
                 <div class="name_job">
                     <div class="name">{{ user.first_name }} {{ user.last_name }}</div>
                     <div class="job">{{ user.profession }}</div>
