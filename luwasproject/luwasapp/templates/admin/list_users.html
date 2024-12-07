@@ -96,9 +96,6 @@
 <div class="admin-panel">
     <div class="header-container">
         <h2>List of Users</h2>
-        <a href="{% url 'assign_user' %}">
-            <button class="btn-assign">Assign New User</button>
-        </a>
     </div>
     
     <table>
@@ -121,7 +118,8 @@
                 <td>{{ user.department }}</td>
                 <td>{{ user.establishment }}</td>
                 <td>
-                    <a href="{% url 'edit_user' user.id %}">Edit</a>
+                    <a href="{% url 'edit_user' user.id %}">Edit</a> |
+                    <a href="{% url 'assign_user' user.id %}">Assign</a>
                 </td>
             </tr>
             {% endfor %}

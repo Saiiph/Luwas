@@ -225,29 +225,92 @@ def incident_assignment_list(request):
     assignments = IncidentAssignment.objects.filter(user=request.user)
     return render(request, 'incident_assignment/incident_assignment_list.html', {'assignments': assignments})
 
-@user_passes_test(lambda u: u.is_superuser)
-def assign_user_to_incident_admin(request):
+# Mapping of incident categories to departments
+category_to_department = {
+    'fire_incident': ['Fire Department', 'Medical Department', 'Emergency Response'],
+    'medical_emergency': ['Medical Department', 'Emergency Response'],
+    'road_accident': ['Transportation Department', 'Medical Department'],
+    'natural_disaster': ['Disaster Response', 'Emergency Management Department'],
+    'crime_related': ['Police Department', 'Law Enforcement'],
+    'domestic_violence': ['Social Services', 'Domestic Violence Response Team'],
+    'psychological_crisis': ['Mental Health Services', 'Crisis Intervention Team'],
+    'missing_person': ['Police Department', 'Missing Persons Unit'],
+    'poisoning': ['Poison Control Center', 'Health Department'],
+    'gas_leak': ['Fire Department', 'Hazardous Materials (HazMat) Team'],
+    'electrical_hazard': ['Electrical Utility Company', 'Fire Department'],
+    'hazardous_materials': ['Hazardous Materials (HazMat) Response', 'Environmental Protection Agency'],
+    'flooding': ['Emergency Management', 'Flood Control Department'],
+    'earthquake': ['Emergency Management', 'Geological Survey Department'],
+    'typhoon': ['National Disaster Risk Reduction and Management Council (NDRRMC)', 'Emergency Management'],
+    'animal_attack': ['Animal Control', 'Emergency Medical Services (EMS)'],
+    'terrorist_threat': ['Counter-Terrorism Unit', 'National Security Agency'],
+    'building_collapse': ['Fire Department', 'Rescue and Emergency Response'],
+    'public_disturbance': ['Public Safety', 'Police Department'],
+    'child_abuse': ['Child Protective Services', 'Social Services'],
+    'elderly_abuse': ['Adult Protective Services', 'Social Services']
+}
+
+from django.urls import reverse
+
+def assign_user_to_incident_admin(request, user_id):
     users = User.objects.all()
     incidents = IncidentReport.objects.all()
 
+    # Get the user who will be assigned
+    user_to_assign = get_object_or_404(User, id=user_id)
+
+    # Assuming the user has a 'department' field or related model, we can get the department
+    user_department = getattr(user_to_assign, 'department', None)
+    if not user_department:
+        messages.error(request, 'User department not found.')
+        return redirect('assign_user')
+
+    # Convert the department to a string
+    user_department_str = str(user_department).lower()
+
+    # Filter incidents based on the user's department and category
+    filtered_incidents = []
+    for incident in incidents:
+        incident_category = getattr(incident, 'category', None)
+        if not incident_category:
+            messages.error(request, f'Incident {incident.id} does not have a category.')
+            continue
+        incident_category = incident_category.lower()
+        allowed_departments = category_to_department.get(incident_category, [])
+        if user_department_str in [dept.lower() for dept in allowed_departments]:
+            filtered_incidents.append(incident)
+
     if request.method == 'POST':
-        user_id = request.POST['user']
         incident_reportid = request.POST['incident']
-        user = get_object_or_404(User, id=user_id)
         incident = get_object_or_404(IncidentReport, reportid=incident_reportid)
 
         assignment, created = IncidentAssignment.objects.get_or_create(
-            user=user,
+            user=user_to_assign,
             incident_report=incident
         )
         if created:
-            messages.success(request, f'{user.username} has been assigned to Incident {incident.reportid}.')
+            messages.success(request, f'{user_to_assign.username} has been assigned to Incident {incident.reportid}.')
         else:
-            messages.info(request, f'{user.username} is already assigned to Incident {incident.reportid}.')
+            messages.info(request, f'{user_to_assign.username} is already assigned to Incident {incident.reportid}.')
+        
+        return redirect(reverse('assign_user', args=[user_id]))
+    
+    return render(request, 'incident_assignment/assign_user.html', {
+        'users': users, 
+        'incidents': filtered_incidents,  # Pass the filtered incidents
+        'user_to_assign': user_to_assign  # Pass the user to be assigned
+    })
+#====================================Admin View=====================================================================
+@staff_member_required
+def list_users_view(request):
+    users = User.objects.all()
+    return render(request, 'admin/list_users.html', {'users': users})
 
-        return redirect('assign_user')
+@user_passes_test(lambda u: u.is_superuser)
+def edit_user_view(request, user_id):
+    user = get_object_or_404(User, id=user_id)
+    # Add the rest of the edit_user_view logic here
 
-    return render(request, 'incident_assignment/assign_user.html', {'users': users, 'incidents': incidents})
 
 #====================================Admin View=====================================================================
 @staff_member_required

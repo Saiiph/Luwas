@@ -74,6 +74,14 @@
             background-color: #fff;
             color: #333;
         }
+        .incident-assignment input{
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            background-color: #fff;
+            color: #333;
+        }
 
         .incident-assignment button {
             padding: 12px 20px;
@@ -92,7 +100,6 @@
         .incident-assignment button:hover {
             background-color: #E13C47; /* Slightly darker shade of red for hover effect */
         }
-
 
         /* Responsive design */
         @media (max-width: 600px) {
@@ -130,22 +137,18 @@
 
         <form method="post">
             {% csrf_token %}
-            <label for="user">Select User:</label>
-            <select name="user" id="user">
-                {% for user in users %}
-                    <option value="{{ user.id }}">{{ user.username }} - {{user.department}}</option>
-                {% endfor %}
-            </select>
 
+            <label for="user">Selected User</label>
+            <input type="text" id="username" name="username" value="{{ user_to_assign.username }}" readonly>
+            
             <label for="incident">Select Incident:</label>
             <select name="incident" id="incident">
                 {% for incident in incidents %}
                     <option value="{{ incident.reportid }}">Incident {{ incident.reportid }} - {{ incident.category }} - {{ incident.status }}</option>
                 {% endfor %}
             </select>
-
+            
             <button type="submit">Assign</button>
         </form>
     </div>
 {% endblock %}
-    
