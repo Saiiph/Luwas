@@ -1,0 +1,99 @@
+/* Profile Container */
+.profile-container {
+    max-width: 1200px;
+    margin: 30px auto;
+    padding: 40px;
+    background-color: #f7f7f7; 
+    backdrop-filter: blur(10px); 
+}
+
+/* Header Section */
+.profile-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 50px;
+    border-bottom: 2px solid #FF5A5F;
+    padding-bottom: 30px;
+}
+
+.avatar {
+    margin-right: 40px;
+}
+
+.avatar img {
+    width: 200px; 
+    height: 200px;
+    border-radius: 50%;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); 
+}
+
+.user-info h1 {
+    font-size: 40px; 
+    font-weight: 700;
+    color: #2d2d2d;
+    margin-bottom: 15px;
+}
+
+.user-info .bio {
+    font-size: 22px;
+    color: #6c757d;
+}
+
+.edit-profile-btn {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 15px 35px;
+    font-size: 18px;
+    font-weight: 600;
+    color: #ffffff;
+    background: linear-gradient(90deg, #ff585d, #ff7e85); 
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(255, 88, 93, 0.3);
+    transition: all 0.3s ease;
+}
+
+.edit-profile-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 16px rgba(255, 88, 93, 0.5);
+}
+
+/* Detail Cards */
+.profile-details {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+.detail-card {
+    background: rgba(255, 255, 255, 0.7); 
+    backdrop-filter: blur(6px); 
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    border-radius: 15px;
+    padding: 25px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.detail-card:hover {
+    transform: translateY(-4px); 
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+.detail-card h2 {
+    font-size: 22px; 
+    font-weight: 600;
+    color: #4a4a4a;
+    margin-bottom: 15px;
+}
+
+.detail-card p {
+    font-size: 16px;
+    color: #5a5a5a;
+    margin: 8px 0;
+}
+
+.detail-card p strong {
+    color: #7a7a7a;
+}

@@ -1,13 +1,22 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Incident Reports</title>
-</head>
-<body>
-    <form method="post">
-    {% csrf_token %}
+{% extends 'general/base.html' %}
+{% load static %}
+
+{% block title %}Delete User Account{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'delete.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="delete-container">
+    <h2>Delete Account User {{ user.username }}</h2>
     <p>Are you sure you want to delete your account, {{ user.username }}?</p>
-    <button type="submit">Delete</button>
-</form>
-</body>
-</html>
+    <form method="post">
+        {% csrf_token %}
+        <div class="button-container">
+            <button type="submit">Delete</button>
+             <a href="{% url 'user_profile' %}">Cancel</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

@@ -3,16 +3,42 @@
 
 {% block title %}User Profile{% endblock %}
 
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'user_profile.css' %}">
+{% endblock %}
+
 {% block content %}
-    <h1>User Profile</h1>
-    <p><strong>Username:</strong> {{ user.username }}</p>
-    <p><strong>Email:</strong> {{ user.email }}</p>
-    <p><strong>First Name:</strong> {{ user.first_name }}</p>
-    <p><strong>Last Name:</strong> {{ user.last_name }}</p>
-    <p><strong>Contact Information:</strong> {{ user.contact_information }}</p>
-    <p><strong>Address:</strong> {{ user.address }}</p>
-    <p><strong>Profession:</strong> {{ user.profession }}</p>
-    <p><strong>Birth Date:</strong> {{ user.birth_date }}</p>
-    <p><strong>Department:</strong> {{ user.department.name }}</p>
-    <p><strong>Establishment:</strong> {{ user.establishment.name }}</p>
+<div class="profile-container">
+    <div class="profile-header">
+        <div class="avatar">
+            <img src="{% static 'image/LairPfp.jpg' %}" alt="User Avatar">
+        </div>
+        <div class="user-info">
+            <h1>{{ user.first_name }} {{ user.last_name }}</h1>
+            <p class="bio">{{ user.profession }}</p>
+            <a href="{% url 'update_user' %}">
+                <button class="edit-profile-btn">Edit Profile</button>
+            </a>
+        </div>
+    </div>
+    <div class="profile-details">
+        <div class="detail-card">
+            <h2>Personal Information</h2>
+            <p><strong>Email:</strong> {{ user.email }}</p>
+            <p><strong>First Name:</strong> {{ user.first_name }}</p>
+            <p><strong>Last Name:</strong> {{ user.last_name }}</p>
+            <p><strong>Birth Date:</strong> {{ user.birth_date }}</p>
+        </div>
+        <div class="detail-card">
+            <h2>Contact Information</h2>
+            <p><strong>Contact:</strong> {{ user.contact_information }}</p>
+            <p><strong>Address:</strong> {{ user.address }}</p>
+        </div>
+        <div class="detail-card">
+            <h2>Work</h2>
+            <p><strong>Department:</strong> {{ user.department.name }}</p>
+            <p><strong>Establishment:</strong> {{ user.establishment.name }}</p>
+        </div>
+    </div>
+</div>
 {% endblock %}
