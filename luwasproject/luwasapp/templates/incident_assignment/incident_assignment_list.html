@@ -10,15 +10,73 @@
 {% block content %}
 <div class="incident-reports-container">
     <h1>Incident Assignments</h1>
-    <ul>
+
+    <div class="incident-columns">
         {% for assignment in assignments %}
-            <li>
-                {{ assignment.user.username }} assigned to 
-                <a href="{% url 'incident_detail' assignment.incident_report.pk %}">
-                    Incident {{ assignment.incident_report.reportid }}: {{ assignment.incident_report.title }}
-                </a>
-            </li>
+            <div class="incident-column">
+                <h2>Incident {{ assignment.incident_report.reportid }}</h2>
+                <div class="incident-list-column">
+                    <ul>
+                        <li>
+                            {% if assignment.incident_report.image %}
+                                <img src="{{ assignment.incident_report.image.url }}" alt="Incident Image">
+                            {% else %}
+                                {% if assignment.incident_report.category == 'medical_emergency' %}
+                                    <img src="{% static 'placeholder/placeholder_medical_emergency.jpg' %}" alt="Medical Emergency Placeholder">
+                                {% elif assignment.incident_report.category == 'fire_incident' %}
+                                    <img src="{% static 'placeholder/placeholder_fire_incident.jpg' %}" alt="Fire Incident Placeholder">
+                                {% elif assignment.incident_report.category == 'road_accident' %}
+                                    <img src="{% static 'placeholder/placeholder_road_accident.jpg' %}" alt="Road Accident Placeholder">
+                                {% elif assignment.incident_report.category == 'natural_disaster' %}
+                                    <img src="{% static 'placeholder/placeholder_natural_disaster.jpg' %}" alt="Natural Disaster Placeholder">
+                                {% elif assignment.incident_report.category == 'crime_related' %}
+                                    <img src="{% static 'placeholder/placeholder_crime_related.jpg' %}" alt="Crime Related Placeholder">
+                                {% elif assignment.incident_report.category == 'domestic_violence' %}
+                                    <img src="{% static 'placeholder/placeholder_domestic_violence.jpg' %}" alt="Domestic Violence Placeholder">
+                                {% elif assignment.incident_report.category == 'psychological_crisis' %}
+                                    <img src="{% static 'placeholder/placeholder_psychological_crisis.jpg' %}" alt="Psychological Crisis Placeholder">
+                                {% elif assignment.incident_report.category == 'missing_person' %}
+                                    <img src="{% static 'placeholder/placeholder_missing_person.jpg' %}" alt="Missing Person Placeholder">
+                                {% elif assignment.incident_report.category == 'poisoning' %}
+                                    <img src="{% static 'placeholder/placeholder_poisoning.jpg' %}" alt="Poisoning Placeholder">
+                                {% elif assignment.incident_report.category == 'gas_leak' %}
+                                    <img src="{% static 'placeholder/placeholder_gas_leak.jpg' %}" alt="Gas Leak Placeholder">
+                                {% elif assignment.incident_report.category == 'electrical_hazard' %}
+                                    <img src="{% static 'placeholder/placeholder_electrical_hazard.jpg' %}" alt="Electrical Hazard Placeholder">
+                                {% elif assignment.incident_report.category == 'hazardous_materials' %}
+                                    <img src="{% static 'placeholder/placeholder_hazardous_materials.jpg' %}" alt="Hazardous Materials Spill Placeholder">
+                                {% elif assignment.incident_report.category == 'flooding' %}
+                                    <img src="{% static 'placeholder/placeholder_flooding.jpg' %}" alt="Flooding Placeholder">
+                                {% elif assignment.incident_report.category == 'earthquake' %}
+                                    <img src="{% static 'placeholder/placeholder_earthquake.jpg' %}" alt="Earthquake Placeholder">
+                                {% elif assignment.incident_report.category == 'typhoon' %}
+                                    <img src="{% static 'placeholder/placeholder_typhoon.jpg' %}" alt="Typhoon Placeholder">
+                                {% elif assignment.incident_report.category == 'animal_attack' %}
+                                    <img src="{% static 'placeholder/placeholder_animal_attack.jpg' %}" alt="Animal Attack Placeholder">
+                                {% elif assignment.incident_report.category == 'terrorist_threat' %}
+                                    <img src="{% static 'placeholder/placeholder_terrorist_threat.jpg' %}" alt="Terrorist Threat/Attack Placeholder">
+                                {% elif assignment.incident_report.category == 'building_collapse' %}
+                                    <img src="{% static 'placeholder/placeholder_building_collapse.jpg' %}" alt="Building Collapse Placeholder">
+                                {% elif assignment.incident_report.category == 'public_disturbance' %}
+                                    <img src="{% static 'placeholder/placeholder_public_disturbance.jpg' %}" alt="Public Disturbance Placeholder">
+                                {% elif assignment.incident_report.category == 'child_abuse' %}
+                                    <img src="{% static 'placeholder/placeholder_child_abuse.jpg' %}" alt="Child Abuse Placeholder">
+                                {% elif assignment.incident_report.category == 'elderly_abuse' %}
+                                    <img src="{% static 'placeholder/placeholder_elderly_abuse.jpg' %}" alt="Elderly Abuse Placeholder">
+                                {% endif %}
+                            {% endif %}
+                            <a href="{% url 'incident_detail' assignment.incident_report.pk %}" class="card-link">
+                                <div class="incident-info">
+                                    <h3>{{ assignment.incident_report.incident_type }}</h3>
+                                    <p><span>Category:</span> {{ assignment.incident_report.category }}</p>
+                                    <p><span>Status:</span> {{ assignment.incident_report.status }}</p>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
         {% endfor %}
-    </ul>
+    </div>
 </div>
 {% endblock %}

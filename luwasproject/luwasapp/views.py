@@ -15,6 +15,8 @@ from .utils import get_location_from_coordinates
 
 from django.contrib.auth.decorators import user_passes_test
 from django.contrib.admin.views.decorators import staff_member_required
+from django.db.models import Count
+import json
 
 
 #======================================================GENERAL VIEW======================================================#
@@ -25,10 +27,28 @@ def home_view(request):
 # Dashboard view
 @login_required
 def dashboard_view(request):
+    user = request.user
+
+    # Group incidents by category and count them
+    incidents_by_category = list(IncidentReport.objects.values('category').annotate(count=Count('category')).order_by('-count'))
+
+    # Group incidents by status and count them
+    incidents_by_status = list(IncidentReport.objects.values('status').annotate(count=Count('status')).order_by('-count'))
+
+    # Group user's assigned incidents by category and count them
+    user_incidents_by_category = list(IncidentAssignment.objects.filter(user=user).values('incident_report__category').annotate(count=Count('incident_report__category')).order_by('-count'))
+
+    # Group user's assigned incidents by status and count them
+    user_incidents_by_status = list(IncidentAssignment.objects.filter(user=user).values('incident_report__status').annotate(count=Count('incident_report__status')).order_by('-count'))
+
     context = {
-        'user': request.user,
+        'user': user,
+        'incidents_by_category': json.dumps(incidents_by_category),
+        'incidents_by_status': json.dumps(incidents_by_status),
+        'user_incidents_by_category': json.dumps(user_incidents_by_category),
+        'user_incidents_by_status': json.dumps(user_incidents_by_status),
     }
-    return render(request, 'general/dashboard.html',context)
+    return render(request, 'general/dashboard.html', context)
 
 #======================================================USER VIEW======================================================#
 #Signup view
