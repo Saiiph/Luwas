@@ -54,19 +54,25 @@ h2 {
     box-shadow: 0 0 6px rgba(255, 90, 95, 0.5);
 }
 
-.submit-btn {
+.button-row {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.button-row button {
     background-color: #ff5a5f;
     color: #fff;
     padding: 14px 24px;
     font-size: 18px;
     border: none;
     border-radius: 8px;
-    width: 100%;
+    width: 48%;
     cursor: pointer;
     transition: all 0.3s ease;
 }
 
-.submit-btn:hover {
+.button-row button:hover {
     background-color: #ff3b3f;
 }
 

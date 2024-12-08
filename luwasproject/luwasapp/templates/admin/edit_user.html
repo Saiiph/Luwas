@@ -66,7 +66,16 @@
         </div>
     </div>
 
-    <button type="submit" name="save" class="submit-btn">Save</button>
+    <div class="button-row">
+        <button type="submit" name="save" class="submit-btn">Save</button>
+        <button type="button" class="btn-cancel" onclick="cancelEdit()">Cancel</button>
+    </div>
 </form>
+
+<script>
+    function cancelEdit() {
+        window.location.href = "{% url 'list_users' %}";  // Replace 'admin_panel' with the appropriate URL name
+    }
+</script>
 
 {% endblock %}

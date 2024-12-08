@@ -79,6 +79,7 @@
             <div class="button-container">
                 <button type="submit" class="btn btn-primary">Update</button>
                 <button type="button" class="btn btn-danger" onclick="deleteAccount()">Delete Account</button>
+                <button type="button" class="btn btn-cancel" onclick="cancelUpdate()">Cancel</button>
             </div>
             <input type="hidden" name="action" id="action" value="update">
         </form>
@@ -87,6 +88,10 @@
     <script>
         function deleteAccount() {
             window.location.href = "{% url 'delete_user' %}";
+        }
+
+        function cancelUpdate() {
+            window.location.href = "{% url 'user_profile' %}";  // Replace 'profile' with the appropriate URL name
         }
     </script>
 {% endblock %}

@@ -101,6 +101,24 @@
             background-color: #E13C47; /* Slightly darker shade of red for hover effect */
         }
 
+        .incident-assignment .btn-cancel {
+            background-color: #6c757d; /* Gray */
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            margin-top: 20px;
+            align-self: center;
+            width: 740px;
+        }
+
+        .incident-assignment .btn-cancel:hover {
+            background-color: #5a6268; /* Darker gray */
+        }
+
         /* Responsive design */
         @media (max-width: 600px) {
             .incident-assignment {
@@ -116,7 +134,7 @@
                 gap: 10px;
             }
 
-            .incident-assignment label, .incident-assignment select, .incident-assignment button {
+            .incident-assignment label, .incident-assignment select, .incident-assignment button, .incident-assignment .btn-cancel {
                 font-size: 14px;
             }
         }
@@ -149,6 +167,13 @@
             </select>
             
             <button type="submit">Assign</button>
+            <button type="button" class="btn-cancel" onclick="cancelAssignment()">Cancel</button>
         </form>
     </div>
+
+    <script>
+        function cancelAssignment() {
+            window.location.href = "{% url 'list_users' %}";  
+        }
+    </script>
 {% endblock %}

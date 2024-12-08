@@ -131,17 +131,19 @@
     const incidentsByStatus = JSON.parse('{{ incidents_by_status|escapejs }}');
     const userIncidentsByCategory = JSON.parse('{{ user_incidents_by_category|escapejs }}');
     const userIncidentsByStatus = JSON.parse('{{ user_incidents_by_status|escapejs }}');
+    const categoryDisplayNames = JSON.parse('{{ category_display_names|escapejs }}');
+    const statusDisplayNames = JSON.parse('{{ status_display_names|escapejs }}');
 
-    const categoryLabels = incidentsByCategory.map(item => item.category);
+    const categoryLabels = incidentsByCategory.map(item => categoryDisplayNames[item.category]);
     const categoryData = incidentsByCategory.map(item => item.count);
 
-    const statusLabels = incidentsByStatus.map(item => item.status);
+    const statusLabels = incidentsByStatus.map(item => statusDisplayNames[item.status]);
     const statusData = incidentsByStatus.map(item => item.count);
 
-    const userCategoryLabels = userIncidentsByCategory.map(item => item.incident_report__category);
+    const userCategoryLabels = userIncidentsByCategory.map(item => categoryDisplayNames[item.incident_report__category]);
     const userCategoryData = userIncidentsByCategory.map(item => item.count);
 
-    const userStatusLabels = userIncidentsByStatus.map(item => item.incident_report__status);
+    const userStatusLabels = userIncidentsByStatus.map(item => statusDisplayNames[item.incident_report__status]);
     const userStatusData = userIncidentsByStatus.map(item => item.count);
 
     const categoryCtx = document.getElementById('categoryChart').getContext('2d');

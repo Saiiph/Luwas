@@ -41,12 +41,45 @@ def dashboard_view(request):
     # Group user's assigned incidents by status and count them
     user_incidents_by_status = list(IncidentAssignment.objects.filter(user=user).values('incident_report__status').annotate(count=Count('incident_report__status')).order_by('-count'))
 
+    # Mapping of category/status keys to display names
+    category_display_names = {
+        'medical_emergency': 'Medical Emergency',
+        'fire_incident': 'Fire Incident',
+        'road_accident': 'Road Accident',
+        'natural_disaster': 'Natural Disaster',
+        'crime_related': 'Crime Related',
+        'domestic_violence': 'Domestic Violence',
+        'psychological_crisis': 'Psychological Crisis',
+        'missing_person': 'Missing Person',
+        'poisoning': 'Poisoning',
+        'gas_leak': 'Gas Leak',
+        'electrical_hazard': 'Electrical Hazard',
+        'hazardous_materials': 'Hazardous Materials',
+        'flooding': 'Flooding',
+        'earthquake': 'Earthquake',
+        'typhoon': 'Typhoon',
+        'animal_attack': 'Animal Attack',
+        'terrorist_threat': 'Terrorist Threat',
+        'building_collapse': 'Building Collapse',
+        'public_disturbance': 'Public Disturbance',
+        'child_abuse': 'Child Abuse',
+        'elderly_abuse': 'Elderly Abuse'
+    }
+
+    status_display_names = {
+        'reported': 'Reported',
+        'resolved': 'Resolved',
+        'closed': 'Closed'
+    }
+
     context = {
         'user': user,
         'incidents_by_category': json.dumps(incidents_by_category),
         'incidents_by_status': json.dumps(incidents_by_status),
         'user_incidents_by_category': json.dumps(user_incidents_by_category),
         'user_incidents_by_status': json.dumps(user_incidents_by_status),
+        'category_display_names': json.dumps(category_display_names),
+        'status_display_names': json.dumps(status_display_names)
     }
     return render(request, 'general/dashboard.html', context)
 

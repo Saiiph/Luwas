@@ -82,23 +82,33 @@ h2 {
 }
 
 .btn-primary {
-    background-color: #ff5a5f;
+    background-color: #007A68; /* Blue */
     color: white;
     border: none;
 }
 
 .btn-primary:hover {
-    background-color: #e04e50;
+    background-color: #005f50; /* Darker blue */
+}
+
+.btn-cancel {
+    background-color: #6c757d; /* Gray */
+    color: white;
+    border: none;
+}
+
+.btn-cancel:hover {
+    background-color: #5a6268; /* Darker gray */
 }
 
 .btn-danger {
-    background-color: #f16a6a;
+    background-color: #dc3545; /* Red */
     color: white;
     border: none;
 }
 
 .btn-danger:hover {
-    background-color: #d15959;
+    background-color: #c82333; /* Darker red */
 }
 
 /* Mobile responsiveness */
