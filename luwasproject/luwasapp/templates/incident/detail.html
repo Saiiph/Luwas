@@ -16,7 +16,22 @@
     <div class="incident-body">
         <!-- Left side: Map and Location Details -->
         <div class="left-side">
-            <div class="map-container">
+            <!-- Toggle Buttons -->
+            <div class="map-toggle-buttons">
+                <button id="nominatim-btn" class="toggle-btn active" onclick="showMap('nominatim')">Nominatim Map</button>
+                <button id="streetview-btn" class="toggle-btn" onclick="showMap('streetview')">Street View</button>
+            </div>
+
+            <!-- Nominatim/OpenStreetMap Embed -->
+            <div id="nominatim-map" class="map-container">
+                <iframe
+                    src="https://www.openstreetmap.org/export/embed.html?bbox={{ incident.longitude|floatformat:5 }}%2C{{ incident.latitude|floatformat:5 }}%2C{{ incident.longitude|floatformat:5 }}%2C{{ incident.latitude|floatformat:5 }}&layer=mapnik&marker={{ incident.latitude }}%2C{{ incident.longitude }}"
+                    allowfullscreen>
+                </iframe>
+            </div>
+
+            <!-- Google Street View Embed -->
+            <div id="streetview-map" class="map-container" style="display: none;">
                 <iframe
                     src="https://www.google.com/maps/embed?pb=!1m0!3m2!1sen!2sus!4v0!6m8!1m7!1sCAoSLEFGMVFpcFBxRzJXZW9LUVlfNjU4aF9fZmMxa0FCWmVpdmFSRk5MR0Q0!2m2!1d{{ incident.latitude }}!2d{{ incident.longitude }}!3f0!4f0!5f1.2"
                     allowfullscreen>
@@ -69,5 +84,52 @@
         </div>
     </div>
 </div>
+
+<!-- JavaScript for toggling maps -->
+<script>
+    function showMap(mapType) {
+        const nominatimMap = document.getElementById('nominatim-map');
+        const streetviewMap = document.getElementById('streetview-map');
+        const nominatimBtn = document.getElementById('nominatim-btn');
+        const streetviewBtn = document.getElementById('streetview-btn');
+
+        if (mapType === 'nominatim') {
+            nominatimMap.style.display = 'block';
+            streetviewMap.style.display = 'none';
+            nominatimBtn.classList.add('active');
+            streetviewBtn.classList.remove('active');
+        } else if (mapType === 'streetview') {
+            nominatimMap.style.display = 'none';
+            streetviewMap.style.display = 'block';
+            streetviewBtn.classList.add('active');
+            nominatimBtn.classList.remove('active');
+        }
+    }
+</script>
+
+<style>
+    .map-toggle-buttons {
+        margin-bottom: 10px;
+        display: flex;
+        gap: 10px;
+    }
+
+    .toggle-btn {
+        padding: 8px 16px;
+        border: none;
+        cursor: pointer;
+        background-color: #007bff;
+        color: white;
+        border-radius: 4px;
+    }
+
+    .toggle-btn.active {
+        background-color: #0056b3;
+    }
+
+    .toggle-btn:hover {
+        background-color: #0056b3;
+    }
+</style>
 
 {% endblock %}

@@ -3,6 +3,7 @@ from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseForbidden
+import requests
 
 from django.contrib import messages
 
@@ -197,9 +198,36 @@ def incident_create_view(request):
 #Incident Detail View
 @login_required
 def incident_detail_view(request, pk):
+    # Get the incident report
     incident = get_object_or_404(IncidentReport, pk=pk)
+    
+    # Check if the user is assigned to this incident
     is_assigned = IncidentAssignment.objects.filter(incident_report=incident, user=request.user).exists()
-    return render(request, 'incident/detail.html', {'incident': incident, 'is_assigned': is_assigned})
+
+    # Fetch location details from Nominatim
+    location_details = {}
+    if incident.latitude and incident.longitude:
+        NOMINATIM_URL = "https://nominatim.openstreetmap.org/reverse"
+        params = {
+            "lat": incident.latitude,
+            "lon": incident.longitude,
+            "format": "json",
+        }
+        try:
+            response = requests.get(NOMINATIM_URL, params=params)
+            if response.status_code == 200:
+                location_details = response.json()
+        except requests.RequestException as e:
+            # Log error in production
+            print(f"Error fetching location details: {e}")
+
+    # Render the template
+    return render(request, 'incident/detail.html', {
+        'incident': incident,
+        'is_assigned': is_assigned,
+        'location_details': location_details,
+    })
+
 
 #Update Incident View
 @login_required
