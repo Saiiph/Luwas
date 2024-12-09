@@ -115,20 +115,23 @@
     }
 
     .toggle-btn {
-        padding: 8px 16px;
+        padding: 12px 20px;
+        font-size: 1rem;
         border: none;
+        border-radius: 8px;
         cursor: pointer;
-        background-color: #007bff;
+        background-color: #FF5A5F; /* Coral primary */
         color: white;
-        border-radius: 4px;
+        transition: transform 0.3s ease, background-color 0.3s ease;
     }
 
     .toggle-btn.active {
-        background-color: #0056b3;
+        background-color: #D84044; /* Darker coral for active state */
     }
 
     .toggle-btn:hover {
-        background-color: #0056b3;
+        transform: translateY(-2px);
+        background-color: #D84044; /* Darker coral for hover */
     }
 </style>
 

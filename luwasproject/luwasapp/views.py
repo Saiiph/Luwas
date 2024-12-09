@@ -255,7 +255,7 @@ def incident_delete_view(request, pk):
 def incident_list_view(request):
     if not request.user.department:
         # If the user doesn't belong to any department, deny access
-        return HttpResponseForbidden("You are not assigned to a department.")
+        return render(request, 'general/not_assigned.html')
     
     # Map categories to departments (create this mapping as needed)
     category_to_department = {

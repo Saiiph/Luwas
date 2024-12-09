@@ -22,6 +22,7 @@
             </a>
             <span class="tooltip">Incident List</span>
         </li>
+        {% if request.user.department %}
         <li>
             <a href="{% url 'incident_assignment_list' %}">    
                 <i class='bx bx-shield'></i>
@@ -29,6 +30,7 @@
             </a>
             <span class="tooltip">Assignment</span>
         </li>
+        {% endif %}
         <li>
             <a href="{%url 'user_profile' %}">
                 <i class='bx bx-user'></i> 
