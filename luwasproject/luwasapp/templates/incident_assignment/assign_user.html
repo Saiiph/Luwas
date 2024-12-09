@@ -162,7 +162,9 @@
             <label for="incident">Select Incident:</label>
             <select name="incident" id="incident">
                 {% for incident in incidents %}
-                    <option value="{{ incident.reportid }}">Incident {{ incident.reportid }} - {{ incident.category }} - {{ incident.status }}</option>
+                    {% if incident.status != 'closed' and incident.status != 'resolved' %}
+                        <option value="{{ incident.reportid }}">Incident {{ incident.reportid }} - {{ incident.category }} - {{ incident.status }}</option>
+                    {% endif %}
                 {% endfor %}
             </select>
             
